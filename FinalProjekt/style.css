@@ -1,0 +1,188 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 22px;
+ 
+}
+.caption{
+  width: 1440px;
+  margin:  50px auto;
+  
+  font-weight: 700;
+  font-size: 36px;
+  text-align: center;
+}
+.section {
+  width: 1440px;
+  
+  
+  margin: auto;
+  
+}
+
+.authorization__choose-mode {
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.mode_btn {
+    margin: 10px;
+    width: 200px;
+    height: 50px;
+    line-height: 45px;
+    text-align: center ;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 25px;
+    color: #616161;
+    background-color: #f5f5f5;
+    transition: all 0.2s linear;
+    user-select: none; 
+}
+
+.mode_btn.active_btn{
+    background-color: #03a8f4c4;
+    color: black;
+}
+
+.mode_btn:hover{
+    transform: scale(1.1);
+}
+
+.mode_btn:active{
+    transform: scale(0.9);
+}
+
+.authorization__authorization-forms {
+  width: 1440px;
+  display: flex;
+  position: relative;
+  left: 0;
+  transition: all 0.9s linear;
+}
+
+.authorization__wrapper {
+  width: 720px;
+  height: 80vh;
+  
+  margin: auto;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.authorization__authorization-forms__authorization,
+.authorization__authorization-forms__registration {
+  margin: auto;
+  width: 720px;
+  overflow: hidden;
+  position: relative;
+  
+}
+
+form{
+    width: 720px;
+    margin: auto;
+}
+
+form *{
+    display: block;
+    width: fit-content;
+}
+
+.form_input{
+    margin: auto;
+}
+
+.active_registration{
+    left: -100%;
+}
+.eror {
+  border: 2px solid red;
+}
+.eror-message{
+  color: red;
+  visibility: hidden;
+  font-size: 14px;
+}
+.visible{
+  visibility: visible;
+}
+input[type = submit]{
+  margin-top: 10px;
+  padding: 0 18px;
+    height: 40px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #527881;
+    text-shadow: 0 1px #e3f1f1;
+    background: #cde5ef;
+    border: 1px solid;
+    border-color: #b4ccce #b3c0c8 #9eb9c2;
+    border-radius: 40px;
+    outline: 0;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    background-image: -webkit-linear-gradient(top, #edf5f8, #cde5ef);
+    background-image: -moz-linear-gradient(top, #edf5f8, #cde5ef);
+    background-image: -o-linear-gradient(top, #edf5f8, #cde5ef);
+    background-image: linear-gradient(to bottom, #edf5f8, #cde5ef);
+    -webkit-box-shadow: inset 0 1px white, 0 1px 2px rgb(0 0 0 / 15%);
+    box-shadow: inset 0 1px white, 0 1px 2px rgb(0 0 0 / 15%);
+}
+input[type=submit]:active {
+  background: #cde5ef;
+  border-color: #9eb9c2 #b3c0c8 #b4ccce;
+  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+}
+.eror-authorization{
+  position: fixed;
+  width: 300px;
+  height: 40px;
+  text-align: center;
+  font-size: 15px;
+  line-height: 38px;
+  border-radius: 19px;
+  background-color: rgb(211, 21, 21);
+  right: 3%;
+  top: 3%;
+  visibility: hidden;
+}
+
+.choose-quiz{
+  display: flex;
+  flex-direction: row;
+  flex-wrap:wrap;
+  justify-content: space-between;
+}
+.quiz-level{
+  display: block;
+  width: 400px;
+  margin: 20px;
+
+}
+.quiz-level__header{
+  text-align: center;
+  user-select: none;
+}
+.quiz-level__background-img{
+  margin: auto;
+  width: 400px;
+}
+.quiz-level__background-img > img {
+  margin: auto;
+  display: block;
+  height: 210px
+}
+.quiz-level:hover{
+  transform: scale(1.07);
+}
+#addQuiz{
+  border: 1px solid #616161;
+}
+#addQuiz:hover{
+  transform: scale(1.07);
+}

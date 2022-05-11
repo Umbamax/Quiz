@@ -1,0 +1,49 @@
+[
+    {
+        "quizName": "flowers",
+        "typeQuiz": "4img",
+        "questions": "Какой это цветок",
+        "answers":[
+            {
+                "imgSRC":"//src/flowers/Герберы.jpg",
+                "answer":"Герберы"
+            },
+            {
+                "imgSRC":"//src/flowers/колокольчик.jpg",
+                "answer":"колокольчик"
+            },
+            {
+                "imgSRC":"//src/flowers/лилия.jpg",
+                "answer":"лилия"
+            },
+            {
+                "imgSRC":"//src/flowers/лотос.jpg",
+                "answer":"лотос"
+            },
+            {
+                "imgSRC":"//src/flowers/орхидея.jpg",
+                "answer":"орхидея"
+            },
+            {
+                "imgSRC":"//src/flowers/пион.jpg",
+                "answer":"пион"
+            },
+            {
+                "imgSRC":"//src/flowers/роза.jpg",
+                "answer":"роза"
+            },
+            {
+                "imgSRC":"//src/flowers/ромашка.jpg",
+                "answer":"ромашка"
+            },
+            {
+                "imgSRC":"//src/flowers/сакура.jpg",
+                "answer":"сакура"
+            },
+            {
+                "imgSRC":"//src/flowers/тюльпан.jpg",
+                "answer":"тюльпан"
+            }
+        ]
+    }
+]
