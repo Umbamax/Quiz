@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/addQuizStyles.css">
     <title>Quiz</title>
   </head>
   <body>
@@ -106,7 +107,7 @@
       </section>
       <section class="section add-quiz-page">
         <div class="add-quiz__content">
-          <div class="add-quiz__field"><label for="numberOfQuestion">Введите количество заданий</label><input type="number" id="numberOfQuestion" max="10"></div>
+          <div class="add-quiz__field"><label for="numberOfQuestion">Введите количество заданий</label><input type="number" id="numberOfQuestion" max="10" data-popup = "Значение меньше 1" data-popup-side="top"></div>
           <div class="add-quiz__field"><label for="nameOfQuiz">Введите название викторины</label><input type="text" id="nameOfQuiz" ></div>
           <div class="add-quiz__field">
             <h4>Выберите тип ответов</h4>
@@ -115,14 +116,15 @@
           </div>
           <div class="add-quiz__field">
             <h4>Выберите тип вопроса</h4>
-            <input type="radio" value="simpleQuestion" name="typeOfQuestions" id="simpleQuestion" checked><label for="simpleQuestion">Для всех заданий один вопрос</label>
-            <input type="radio" value="multiQuestion" name="typeOfQuestions" id="multiQuestion"><label for="multiQuestion">Для всех заданий разные вопросы</label>
+            <input type="radio" value="simpleQuestion" name="typeOfQuestions" id="simpleQuestion"checked ><label for="simpleQuestion">Для всех заданий один вопрос</label>
+            <input type="radio" value="multiQuestion" name="typeOfQuestions" id="multiQuestion" disabled ><label for="multiQuestion">Для всех заданий разные вопросы</label>
           </div>
           <div class="add-quiz__field">
             <label for="textForSimpleQuestion">Введите текст вопроса</label><input type="text" id="textForSimpleQuestion">
           </div>
           <div class="add-quiz__field">
-            <input type="button" value="Продолжить">
+            <input type="button" id="submitAddQuizSettings" value="Продолжить">
+            <div class="add-quiz__error-value">adsasdasdads</div>
           </div>
         </div>
       </section>

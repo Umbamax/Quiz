@@ -32,7 +32,7 @@ function isEmail(str) {
 regFormInputs.forEach((el) => {
   el.addEventListener("blur", (event) => {
     if (!isFill(event.target.value)) {
-      console.log(event.target);
+      
       event.target.classList.add("eror");
       event.target.nextElementSibling.classList.add("visible");
       event.target.nextElementSibling.textContent = "Поле обязательно для ввода.";
