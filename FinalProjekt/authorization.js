@@ -20,7 +20,7 @@ enterUser.addEventListener("click", (e) => {
     .then((res) => res.text())
     .then((res) => {
       sessionStorage.setItem("user", res);
-      location.hash = "#chooseQuiz"
+      location.hash = "#sendNewQuiz"
     })
     .catch(() => {
         erorAuth.innerHTML = 'Неверный логин или пароль'

@@ -96,7 +96,7 @@ sbmtSettings.addEventListener("click", () => {
       quizData.question = textForSimpleQuestion.value
     }
 
-    console.log(quizData)
+    location.hash = "#sendNewQuiz"
 
   }
 });

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/addQuizStyles.css">
+    <link rel="stylesheet" href="css/addQuizStyles.css" />
     <title>Quiz</title>
   </head>
   <body>
@@ -61,71 +61,123 @@
       </section>
       <section class="section choose-quiz-wrapper">
         <div class="choose-quiz">
-        <div class="quiz-level">
-          <h3 class="quiz-level__header">Название викторины</h3>
-          <div class="quiz-level__background-img"> 
-            <img src="img/testImg.jpg" alt="test">          
+          <div class="quiz-level">
+            <h3 class="quiz-level__header">Название викторины</h3>
+            <div class="quiz-level__background-img">
+              <img src="img/testImg.jpg" alt="test" />
+            </div>
           </div>
-        </div>
-        <div class="quiz-level">
-          <h3 class="quiz-level__header">Название викторины</h3>
-          <div class="quiz-level__background-img">  
-            <img src="img/testImg.jpg" alt="test">          
+          <div class="quiz-level">
+            <h3 class="quiz-level__header">Название викторины</h3>
+            <div class="quiz-level__background-img">
+              <img src="img/testImg.jpg" alt="test" />
+            </div>
           </div>
-        </div>
-        <div class="quiz-level">
-          <h3 class="quiz-level__header">Название викторины</h3>
-          <div class="quiz-level__background-img"> 
-            <img src="img/testImg.jpg" alt="test">           
+          <div class="quiz-level">
+            <h3 class="quiz-level__header">Название викторины</h3>
+            <div class="quiz-level__background-img">
+              <img src="img/testImg.jpg" alt="test" />
+            </div>
           </div>
-        </div>
-        <div class="quiz-level">
-          <h3 class="quiz-level__header">Название викторины</h3>
-          <div class="quiz-level__background-img">   
-            <img src="img/testImg.jpg" alt="test">         
+          <div class="quiz-level">
+            <h3 class="quiz-level__header">Название викторины</h3>
+            <div class="quiz-level__background-img">
+              <img src="img/testImg.jpg" alt="test" />
+            </div>
           </div>
-        </div>
-        <div class="quiz-level">
-          <h3 class="quiz-level__header">Название викторины</h3>
-          <div class="quiz-level__background-img">    
-            <img src="img/testImg.jpg" alt="test">        
+          <div class="quiz-level">
+            <h3 class="quiz-level__header">Название викторины</h3>
+            <div class="quiz-level__background-img">
+              <img src="img/testImg.jpg" alt="test" />
+            </div>
           </div>
-        </div>
-        <div class="quiz-level">
-          <h3 class="quiz-level__header">Название викторины</h3>
-          <div class="quiz-level__background-img">    
-            <img src="img/testImg.jpg" alt="test">        
+          <div class="quiz-level">
+            <h3 class="quiz-level__header">Название викторины</h3>
+            <div class="quiz-level__background-img">
+              <img src="img/testImg.jpg" alt="test" />
+            </div>
           </div>
-        </div>
-        <div id="addQuiz">
-          <h3 class="quiz-level__header">Добавить викторину</h3>
-          <div class="quiz-level__background-img">
-            <img src="img/Green-Add-Button-PNG.png" alt="addQuiz">
+          <div id="addQuiz">
+            <h3 class="quiz-level__header">Добавить викторину</h3>
+            <div class="quiz-level__background-img">
+              <img src="img/Green-Add-Button-PNG.png" alt="addQuiz" />
+            </div>
           </div>
-        </div>
         </div>
       </section>
       <section class="section add-quiz-page">
         <div class="add-quiz__content">
-          <div class="add-quiz__field"><label for="numberOfQuestion">Введите количество заданий</label><input type="number" id="numberOfQuestion" max="10" data-popup = "Значение меньше 1" data-popup-side="top"></div>
-          <div class="add-quiz__field"><label for="nameOfQuiz">Введите название викторины</label><input type="text" id="nameOfQuiz" ></div>
+          <div class="add-quiz__field">
+            <label for="numberOfQuestion">Введите количество заданий</label><input type="number" id="numberOfQuestion" max="10" data-popup="Значение меньше 1" data-popup-side="top" />
+          </div>
+          <div class="add-quiz__field"><label for="nameOfQuiz">Введите название викторины</label><input type="text" id="nameOfQuiz" /></div>
           <div class="add-quiz__field">
             <h4>Выберите тип ответов</h4>
-            <input type="radio" value="4img" name="typeOfAnswers" id="4img" checked><label for="4img">4 изображения</label>
-            <input type="radio" value="4txt" name="typeOfAnswers" id="4txt"><label for="4txt">4 текстовых ответа</label>
+            <input type="radio" value="4img" name="typeOfAnswers" id="4img" checked /><label for="4img">4 изображения</label> <input type="radio" value="4txt" name="typeOfAnswers" id="4txt" /><label
+              for="4txt"
+              >4 текстовых ответа</label
+            >
           </div>
           <div class="add-quiz__field">
             <h4>Выберите тип вопроса</h4>
-            <input type="radio" value="simpleQuestion" name="typeOfQuestions" id="simpleQuestion" checked ><label for="simpleQuestion">Для всех заданий один вопрос</label>
-            <input type="radio" value="multiQuestion" name="typeOfQuestions" id="multiQuestion" disabled ><label for="multiQuestion">Для всех заданий разные вопросы</label>
+            <input type="radio" value="simpleQuestion" name="typeOfQuestions" id="simpleQuestion" checked /><label for="simpleQuestion">Для всех заданий один вопрос</label>
+            <input type="radio" value="multiQuestion" name="typeOfQuestions" id="multiQuestion" disabled /><label for="multiQuestion">Для всех заданий разные вопросы</label>
           </div>
+          <div class="add-quiz__field"><label for="textForSimpleQuestion">Введите текст вопроса</label><input type="text" id="textForSimpleQuestion" /></div>
           <div class="add-quiz__field">
-            <label for="textForSimpleQuestion">Введите текст вопроса</label><input type="text" id="textForSimpleQuestion">
-          </div>
-          <div class="add-quiz__field">
-            <input type="button" id="submitAddQuizSettings" value="Продолжить" >
+            <input type="button" id="submitAddQuizSettings" value="Продолжить" />
             <div class="add-quiz__error-value"></div>
           </div>
+        </div>
+      </section>
+      <section class="section send-new-quiz">
+        <div class="carousel">
+          <div class="carousel__block"></div>
+          <div class="carousel__block"></div>
+          <div class="carousel__block"></div>
+          <div class="carousel__block"></div>
+        </div>
+        <div class="input-quiz-data">
+          <div class="new-question">
+            <div class="input-quiz-data__img">
+              <div class="input-img"></div>
+              <input type="file" />
+            </div>
+            <div class="text-of-quiz">
+              <input type="text" />
+            </div>
+          </div>
+          <div class="new-question">
+            <div class="input-quiz-data__img">
+              <input type="file" />
+            </div>
+            <div class="text-of-quiz">
+              <input type="text" />
+            </div>
+          </div>
+          <div class="new-question">
+            <div class="input-quiz-data__img">
+              <div class="input-img"></div>
+              <input type="file" />
+            </div>
+            <div class="text-of-quiz">
+              <input type="text" />
+            </div>
+          </div>
+          <div class="new-question">
+            <div class="input-quiz-data__img">
+              <div class="input-img"></div>
+              <input type="file" />
+            </div>
+            <div class="text-of-quiz">
+              <input type="text" />
+            </div>
+          </div>
+        </div>
+        <div class="send-new-quiz__controls">
+          <div class="send-new-quiz__prew-btn">Назад</div>
+          <div class="send-new-quiz__ready-btn" disabled>Готово</div>
+          <div class="send-new-quiz__next-btn">Вперед</div>
         </div>
       </section>
     </main>

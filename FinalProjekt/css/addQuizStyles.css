@@ -15,3 +15,27 @@
     color: rgb(201, 8, 8);
     /* visibility: hidden; */
 }
+.carousel{
+    display: flex;
+    justify-content: space-around;
+    height: 50px;
+    width: 100%;
+    border: 1px solid black
+}
+.carousel__block{
+    width: 80px;
+    height: 30px;
+    border: 1px solid green;
+    align-self: center;
+}
+input[type = file]{
+    display: none;
+}
+.input-img{
+    width:410px;
+    height:210px;
+    border: 1px solid black
+}
+.new-question{
+    border: 1px solid blue
+}

@@ -18,7 +18,7 @@ window.addEventListener("hashchange",changeHash)
 const authPage = document.querySelector('.authorization')
 const chooseQuizPage = document.querySelector('.choose-quiz-wrapper')
 const addQuizPage = document.querySelector('.add-quiz-page')
-
+const sendNewQuizPage = document.querySelector('.send-new-quiz')
 
 function changeHash(){
 
@@ -26,6 +26,8 @@ function changeHash(){
     authPage.hidden = true
     chooseQuizPage.hidden = true
     addQuizPage.hidden = true
+    sendNewQuizPage.hidden = true
+    let user;
     switch(location.hash){
 
         case "#auth":
@@ -40,12 +42,19 @@ function changeHash(){
             chooseQuizPage.hidden = false
             break
         case "#addQuiz":
-            const user = JSON.parse(sessionStorage.getItem('user'))
+            user = JSON.parse(sessionStorage.getItem('user'))
             if(user.isAdmin === false){
               location.hash = "#auth"
             }
             addQuizPage.hidden = false
             break
+        case '#sendNewQuiz':
+            user = JSON.parse(sessionStorage.getItem('user'))
+            if(user.isAdmin === false){
+              location.hash = "#auth"
+            }
+            sendNewQuizPage.hidden = false
+          break
         default:
              location.hash = "#auth"
              sessionStorage.setItem("hash", "#auth")
