@@ -8,39 +8,104 @@ const nameOfQuizInput = document.getElementById("nameOfQuiz");
 const counterOfQuestionsInput = document.getElementById("numberOfQuestion");
 const typeOfAnswersRadios = document.querySelectorAll('input[name="typeOfAnswers"]');
 const typeOfQuestionsRadios = document.querySelectorAll('input[name="typeOfQuestions"]');
-const multiQuestionRadioBtn = document.querySelectorAll('input[value="multiQuestion"]');
-let typeOfAnswers = "4img";
-let typeOfQuestions = "multiQuestion";
+const multiQuestionRadioBtn = document.querySelector('input[value="multiQuestion"]');
+const singleQuestionRadioBtn = document.querySelector('input[value="simpleQuestion"]');
+const textForSimpleQuestion = document.getElementById("textForSimpleQuestion");
+const errorSettings = document.querySelector(".add-quiz__error-value");
+errorSettings.hidden = true;
+let typeOfAnswers = "4img"
+let typeOfQuestions = 'simpleQuestion'
 // addPopup(counterOfQuestionsInput, isCorrectNumber)
 const sbmtSettings = document.getElementById("submitAddQuizSettings");
 
-typeOfQuestionsRadios.forEach((el) =>
+typeOfAnswersRadios.forEach((el) =>
   el.addEventListener("click", () => {
-      
-    typeOfQuestions = el.value;
-    console.log(typeOfQuestions);
-    multiQuestionRadioBtn.disabled = typeOfQuestions === "4img" ? true : false;
+    typeOfAnswers = el.value;
+    
+    if (typeOfAnswers === "4img") {
+      singleQuestionRadioBtn.checked = true;
+      multiQuestionRadioBtn.disabled = true;
+      textForSimpleQuestion.disabled = false;
+    } else {
+      multiQuestionRadioBtn.disabled = false;
+    }
   })
 );
 
-// typeOfAnswers.forEach((el) =>
-//   el.addEventListener("click", () => {
-//     console.log(el.value);
-//   })
-// );
+typeOfQuestionsRadios.forEach((el) =>
+  el.addEventListener("change", () => {
+
+console.log('dasdadad')
+typeOfQuestions = el.value
+    if (multiQuestionRadioBtn.checked) {
+      textForSimpleQuestion.value = "";
+      textForSimpleQuestion.disabled = true;
+    } else {
+      textForSimpleQuestion.disabled = false;
+    }
+  })
+);
+
+function getValueOfRadio(allRadios){
+  let type;
+  allRadios.forEach(el=>{
+    if(el.checked === true){
+      type = el.value
+    }
+  })
+  return type
+}
+
+
+let quizData = {};
 
 sbmtSettings.addEventListener("click", () => {
-  let isValid = isCorrectNumber(counterOfQuestionsInput.value);
-  if (!isFill(nameOfQuizInput.value)) {
+  quizData = {}
+  let isValid = true;
+  if (!isCorrectNumber(counterOfQuestionsInput.value)) {
     isValid = false;
+    errorSettings.innerHTML += "Неверное количество вопросов. ";
+    errorSettings.hidden = false;
+  }
+  if (!isFill(nameOfQuizInput.value)) {
+    errorSettings.innerHTML += "Название викторины не должно быть пустым. ";
+    isValid = false;
+    errorSettings.hidden = false;
+  }
+  if (singleQuestionRadioBtn.checked) {
+    if (!isFill(textForSimpleQuestion.value)) {
+      errorSettings.innerHTML += "Текст вопроса не должен быть пустым. ";
+      isValid = false;
+      errorSettings.hidden = false;
+    }
+  }
+
+  if (!isValid) {
+    sbmtSettings.disabled = true;
+    setTimeout(() => {
+      errorSettings.hidden = true;
+      sbmtSettings.disabled = false;
+      errorSettings.innerHTML = "";
+    }, 5000);
+  } else {
+    quizData.quizName = nameOfQuizInput.value
+    quizData.typeOfAnswers = getValueOfRadio(typeOfAnswersRadios)
+    quizData.typeOfQuestions = getValueOfRadio(typeOfQuestionsRadios)
+
+    if(quizData.typeOfQuestions === 'simpleQuestion'){
+      quizData.question = textForSimpleQuestion.value
+    }
+
+    console.log(quizData)
+
   }
 });
 
 function isCorrectNumber(num) {
-  return num < 1 ? false : true;
+  return (num < 1 || num >10) ? false : true;
 }
 
-let quizData = {};
+
 
 // function addPopup(element, callback) {
 //   let coordX = element.getBoundingClientRect().x;

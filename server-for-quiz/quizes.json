@@ -1,11 +1,12 @@
 [
     {
         "quizName": "flowers",
-        "typeQuiz": "4img",
-        "questions": "Какой это цветок",
+        "typeOfQuestions": "simpleQuestion",
+        "typeOfAnswers":"4img",
+        "question": "Какой это цветок",
         "answers":[
             {
-                "imgSRC":"//src/flowers/Герберы.jpg",
+                "imgSRC":"/src/flowers/Герберы.jpg",
                 "answer":"Герберы"
             },
             {
