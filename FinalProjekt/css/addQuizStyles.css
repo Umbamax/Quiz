@@ -19,8 +19,7 @@
     display: flex;
     justify-content: space-around;
     height: 50px;
-    width: 100%;
-    border: 1px solid black
+    width: 100%;    
 }
 .carousel__block{
     width: 80px;
@@ -32,10 +31,52 @@ input[type = file]{
     display: none;
 }
 .input-img{
-    width:410px;
-    height:210px;
+    margin: auto;
+    position: relative;
+    width: 720px;
+    height:510px;
     border: 1px solid black
 }
 .new-question{
-    border: 1px solid blue
+    
+    position: absolute;
+    border: 1px solid blue;
+    width: 1220px;
+    margin: 15px;
+    left: 100%
+}
+
+.active{
+    left:0%
+
+}
+.input-quiz-data{
+    display:flex;
+    overflow: hidden;
+    position: relative;
+    height: 660px;
+}
+
+.answer-on-question{
+    
+    width:740px;
+    height: 120px;
+
+
+}
+
+.send-new-quiz__controls{
+    display: flex;
+    justify-content:space-between;
+
+}
+.send-new-quiz__controls>div{
+    border: 1px solid black;
+    padding: 20px;
+    font-size:32px;
+    user-select: none
+}
+
+.active-block{
+    background-color: rgb(132, 158, 158);
 }

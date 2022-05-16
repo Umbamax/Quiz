@@ -1,3 +1,5 @@
+import createSlider from "./addQuizSlider.js"
+
 const addQuizBtn = document.getElementById("addQuiz");
 
 addQuizBtn.addEventListener("click", () => {
@@ -91,12 +93,14 @@ sbmtSettings.addEventListener("click", () => {
     quizData.quizName = nameOfQuizInput.value
     quizData.typeOfAnswers = getValueOfRadio(typeOfAnswersRadios)
     quizData.typeOfQuestions = getValueOfRadio(typeOfQuestionsRadios)
+    quizData.counterOfQuestions = counterOfQuestionsInput.value
 
     if(quizData.typeOfQuestions === 'simpleQuestion'){
-      quizData.question = textForSimpleQuestion.value
+      quizData.question = Number(textForSimpleQuestion.value)
     }
-
+    createSendNewQuizPage(quizData)
     location.hash = "#sendNewQuiz"
+    sessionStorage.setItem('hash',"#sendNewQuiz")
 
   }
 });
@@ -105,59 +109,90 @@ function isCorrectNumber(num) {
   return (num < 1 || num >10) ? false : true;
 }
 
+// функция создания страницы добавления викторины
+
+function createSendNewQuizPage(quizData){
+  console.log(quizData)
+  const section = document.querySelector('.send-new-quiz')
+  section.innerHTML = '' //В случае повторного вызова функции сразу удаляем контент
+
+  const mainCarousel = document.createElement('div')
+  const inputQuizData = document.createElement('div')
+  mainCarousel.classList.add('carousel')
+  inputQuizData.classList.add('input-quiz-data')
 
 
-// function addPopup(element, callback) {
-//   let coordX = element.getBoundingClientRect().x;
-//   let coordY = element.getBoundingClientRect().y;
+  for(let i = 0; i<quizData.counterOfQuestions; i++){
+    createCarouselBlock(mainCarousel)
+    createQuizData(inputQuizData)
+  }
+  
+  mainCarousel.childNodes[0].classList.add('active-block')
+  inputQuizData.childNodes[0].classList.add('active')
+  section.appendChild(mainCarousel)
+  section.appendChild(inputQuizData)
 
-//   let parentWidth = element.offsetWidth;
+  createControls(section)
+  const next = section.querySelector('.send-new-quiz__next-btn')
+  const prev = section.querySelector('.send-new-quiz__prev-btn')
+ 
+  createSlider(mainCarousel.childNodes, inputQuizData.childNodes, section.querySelector('.send-new-quiz__next-btn'),  section.querySelector('.send-new-quiz__prev-btn'))
 
-//   const text = element.dataset.popup;
-//   const side = element.dataset.popupSide;
+  function createQuizData(main){
+    const newQuestion = document.createElement('div')
+    newQuestion.classList.add('new-question')
+    const imgWrapper = document.createElement('div')
+    imgWrapper.classList.add('input-quiz-data__img')
+    const inputImgDiv = document.createElement('div')
+    inputImgDiv.classList.add('input-img')
+    const inputImg = document.createElement('input')
+    inputImg.type = 'file'
+    const answerOnQuestionWrapper = document.createElement('div')
+    answerOnQuestionWrapper.classList.add('answer-on-question')
+    const inputAnswerOnQuestion = document.createElement('input')
+    inputAnswerOnQuestion.type = 'text'
 
-//   let handler;
 
-//   if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-//     handler = "click";
-//   } else {
-//     handler = element.dataset.popupHandler || "click";
-//   }
 
-//   let div = document.createElement("div");
-//   div.className = "popup";
-//   div.textContent = text;
-//   div.style.width = parentWidth + "px";
-//   div.style.height = "auto";
-//   div.hidden = true;
-//   switch (side) {
-//     case "right":
-//       div.style.left = coordX + parentWidth + "px";
-//       div.style.top = coordY + "px";
+    imgWrapper.appendChild(inputImgDiv)
+    imgWrapper.appendChild(inputImg)
 
-//       break;
-//     case "left":
-//       div.style.left = coordX - parentWidth + "px";
-//       div.style.top = coordY + "px";
-//       break;
-//     case "top":
-//       div.style.left = coordX + "px";
-//       div.style.top = coordY - div.style.height + "px";
-//       break;
-//     case "bottom":
-//       div.style.left = coordX + "px";
-//       div.style.top = coordY + div.style.height + "px";
-//       break;
-//     default:
-//       div.style.left = coordX + parentWidth + "px";
-//       div.style.top = coordY + "px";
-//   }
 
-//   element.addEventListener('change', ()=>{
+    answerOnQuestionWrapper.appendChild(inputAnswerOnQuestion)
 
-//       div.hidden =  callback(element.value) ? false : true
-//   })
 
-//   body.appendChild(div);
+    newQuestion.appendChild(imgWrapper)
+    newQuestion.appendChild(answerOnQuestionWrapper)
+    main.appendChild(newQuestion)
 
-// }
+  }
+
+  function createControls(main){
+    const controls = document.createElement('div')
+    controls.classList.add('send-new-quiz__controls')
+    const next = document.createElement('div')
+    next.classList.add('send-new-quiz__next-btn')
+    next.textContent = "Next"
+    const prev = document.createElement('div')
+    prev.classList.add('send-new-quiz__prev-btn')
+    prev.textContent = "Prev"
+    const ready = document.createElement('div')
+    ready.classList.add('send-new-quiz__ready-btn')
+    ready.textContent = 'Ready'
+
+
+    controls.appendChild(prev)
+    controls.appendChild(ready)
+    controls.appendChild(next)
+    main.appendChild(controls)
+  }
+
+  function createCarouselBlock(main){
+    let div = document.createElement('div')
+    div.classList.add('carousel__block')
+    main.appendChild(div)
+  }
+
+
+}
+
