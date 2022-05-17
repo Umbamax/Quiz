@@ -139,7 +139,9 @@ function createSendNewQuizPage(quizData){
   createSlider(mainCarousel.childNodes, inputQuizData.childNodes, section.querySelector('.send-new-quiz__next-btn'),  section.querySelector('.send-new-quiz__prev-btn'))
 
   function createQuizData(main){
+
     const newQuestion = document.createElement('div')
+    const span = document.createElement('span')
     newQuestion.classList.add('new-question')
     const imgWrapper = document.createElement('div')
     imgWrapper.classList.add('input-quiz-data__img')
@@ -151,15 +153,57 @@ function createSendNewQuizPage(quizData){
     answerOnQuestionWrapper.classList.add('answer-on-question')
     const inputAnswerOnQuestion = document.createElement('input')
     inputAnswerOnQuestion.type = 'text'
+    
+    span.textContent = 'Enter right answer'
+    
+
+    inputImg.setAttribute('accept','.png,.jpg,.jpeg')
+
+
+    const open = document.createElement('button')
+    open.textContent = 'Choose file'
 
 
 
+    const triggerInput = () => inputImg.click()
+
+    const changeHandler = (event) => {
+      if(!event.target.files.length){
+        return
+      }
+      console.log('work')
+      const file = Array.from(event.target.files) 
+
+      const reader = new FileReader()
+
+      reader.onload = e =>{
+        console.log('work reader')
+        let src = e.target.result
+        const img = document.createElement('img')
+        img.setAttribute('src',src)
+        img.setAttribute('alt',file.name)
+        console.log(e.target.result) 
+        inputImgDiv.appendChild(img)
+      }
+
+
+    }
+
+    open.addEventListener('click', triggerInput)
+    inputImg.addEventListener('change', changeHandler)
+
+
+
+    imgWrapper.appendChild(open)
     imgWrapper.appendChild(inputImgDiv)
     imgWrapper.appendChild(inputImg)
+    
+    
+
 
 
     answerOnQuestionWrapper.appendChild(inputAnswerOnQuestion)
-
+    answerOnQuestionWrapper.appendChild(span)
 
     newQuestion.appendChild(imgWrapper)
     newQuestion.appendChild(answerOnQuestionWrapper)
