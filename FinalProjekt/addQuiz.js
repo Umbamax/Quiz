@@ -1,4 +1,5 @@
-import createSlider from "./addQuizSlider.js"
+import createSlider from "./addQuizSlider.js";
+import checkValidation from "./addQuizValidation.js";
 
 const addQuizBtn = document.getElementById("addQuiz");
 
@@ -15,15 +16,15 @@ const singleQuestionRadioBtn = document.querySelector('input[value="simpleQuesti
 const textForSimpleQuestion = document.getElementById("textForSimpleQuestion");
 const errorSettings = document.querySelector(".add-quiz__error-value");
 errorSettings.hidden = true;
-let typeOfAnswers = "4img"
-let typeOfQuestions = 'simpleQuestion'
+let typeOfAnswers = "4img";
+let typeOfQuestions = "simpleQuestion";
 // addPopup(counterOfQuestionsInput, isCorrectNumber)
 const sbmtSettings = document.getElementById("submitAddQuizSettings");
 
 typeOfAnswersRadios.forEach((el) =>
   el.addEventListener("click", () => {
     typeOfAnswers = el.value;
-    
+
     if (typeOfAnswers === "4img") {
       singleQuestionRadioBtn.checked = true;
       multiQuestionRadioBtn.disabled = true;
@@ -36,9 +37,8 @@ typeOfAnswersRadios.forEach((el) =>
 
 typeOfQuestionsRadios.forEach((el) =>
   el.addEventListener("change", () => {
-
-console.log('dasdadad')
-typeOfQuestions = el.value
+    console.log("dasdadad");
+    typeOfQuestions = el.value;
     if (multiQuestionRadioBtn.checked) {
       textForSimpleQuestion.value = "";
       textForSimpleQuestion.disabled = true;
@@ -48,21 +48,20 @@ typeOfQuestions = el.value
   })
 );
 
-function getValueOfRadio(allRadios){
+function getValueOfRadio(allRadios) {
   let type;
-  allRadios.forEach(el=>{
-    if(el.checked === true){
-      type = el.value
+  allRadios.forEach((el) => {
+    if (el.checked === true) {
+      type = el.value;
     }
-  })
-  return type
+  });
+  return type;
 }
-
 
 let quizData = {};
 
 sbmtSettings.addEventListener("click", () => {
-  quizData = {}
+  quizData = {};
   let isValid = true;
   if (!isCorrectNumber(counterOfQuestionsInput.value)) {
     isValid = false;
@@ -90,153 +89,175 @@ sbmtSettings.addEventListener("click", () => {
       errorSettings.innerHTML = "";
     }, 5000);
   } else {
-    quizData.quizName = nameOfQuizInput.value
-    quizData.typeOfAnswers = getValueOfRadio(typeOfAnswersRadios)
-    quizData.typeOfQuestions = getValueOfRadio(typeOfQuestionsRadios)
-    quizData.counterOfQuestions = counterOfQuestionsInput.value
+    quizData.quizName = nameOfQuizInput.value;
+    quizData.typeOfAnswers = getValueOfRadio(typeOfAnswersRadios);
+    quizData.typeOfQuestions = getValueOfRadio(typeOfQuestionsRadios);
+    quizData.counterOfQuestions = counterOfQuestionsInput.value;
 
-    if(quizData.typeOfQuestions === 'simpleQuestion'){
-      quizData.question = Number(textForSimpleQuestion.value)
+    if (quizData.typeOfQuestions === "simpleQuestion") {
+      quizData.question = textForSimpleQuestion.value;
     }
-    createSendNewQuizPage(quizData)
-    location.hash = "#sendNewQuiz"
-    sessionStorage.setItem('hash',"#sendNewQuiz")
-
+    createSendNewQuizPage(quizData);
+    location.hash = "#sendNewQuiz";
+    sessionStorage.setItem("hash", "#sendNewQuiz");
   }
 });
 
 function isCorrectNumber(num) {
-  return (num < 1 || num >10) ? false : true;
+  return num < 1 || num > 10 ? false : true;
 }
 
 // функция создания страницы добавления викторины
 
-function createSendNewQuizPage(quizData){
-  console.log(quizData)
-  const section = document.querySelector('.send-new-quiz')
-  section.innerHTML = '' //В случае повторного вызова функции сразу удаляем контент
+function createSendNewQuizPage(quizData) {
+  const section = document.querySelector(".send-new-quiz");
+  section.innerHTML = ""; //В случае повторного вызова функции сразу удаляем контент
 
-  const mainCarousel = document.createElement('div')
-  const inputQuizData = document.createElement('div')
-  mainCarousel.classList.add('carousel')
-  inputQuizData.classList.add('input-quiz-data')
+  const mainCarousel = document.createElement("div");
+  const inputQuizData = document.createElement("div");
+  mainCarousel.classList.add("carousel");
+  inputQuizData.classList.add("input-quiz-data");
 
-
-  for(let i = 0; i<quizData.counterOfQuestions; i++){
-    createCarouselBlock(mainCarousel)
-    createQuizData(inputQuizData)
+  for (let i = 0; i < quizData.counterOfQuestions; i++) {
+    createCarouselBlock(mainCarousel);
+    createQuizData(inputQuizData);
   }
-  
-  mainCarousel.childNodes[0].classList.add('active-block')
-  inputQuizData.childNodes[0].classList.add('active')
-  section.appendChild(mainCarousel)
-  section.appendChild(inputQuizData)
 
-  createControls(section)
-  const next = section.querySelector('.send-new-quiz__next-btn')
-  const prev = section.querySelector('.send-new-quiz__prev-btn')
- 
-  createSlider(mainCarousel.childNodes, inputQuizData.childNodes, section.querySelector('.send-new-quiz__next-btn'),  section.querySelector('.send-new-quiz__prev-btn'))
+  mainCarousel.childNodes[0].classList.add("active-block");
+  inputQuizData.childNodes[0].classList.add("active");
+  section.appendChild(mainCarousel);
+  section.appendChild(inputQuizData);
 
-  function createQuizData(main){
+  createControls(section);
+  const send = section.querySelector(".send-new-quiz__ready-btn");
 
-    const newQuestion = document.createElement('div')
-    const span = document.createElement('span')
-    newQuestion.classList.add('new-question')
-    const imgWrapper = document.createElement('div')
-    imgWrapper.classList.add('input-quiz-data__img')
-    const inputImgDiv = document.createElement('div')
-    inputImgDiv.classList.add('input-img')
-    const inputImg = document.createElement('input')
-    inputImg.type = 'file'
-    const answerOnQuestionWrapper = document.createElement('div')
-    answerOnQuestionWrapper.classList.add('answer-on-question')
-    const inputAnswerOnQuestion = document.createElement('input')
-    inputAnswerOnQuestion.type = 'text'
-    
-    span.textContent = 'Enter right answer'
-    
+  send.addEventListener("click", () => {
+    quizData.answers = [];
+    // const mainData = section.querySelectorAll('.new-question')
+    inputQuizData.childNodes.forEach((el) => {
+      const file = Array.from(el.querySelector('input[type="file"]').files);
+      const text = el.querySelector('input[type="text"]').value;
 
-    inputImg.setAttribute('accept','.png,.jpg,.jpeg')
+      const reader = new FileReader();
 
+      reader.onload = (e) => {
+        obj.file = e.target.result;
+        obj.file = obj.file.replace(/^data:image\/(png|jpg);base64,/, "");
+      };
 
-    const open = document.createElement('button')
-    open.textContent = 'Choose file'
+      reader.readAsDataURL(file[0]);
+      let obj = {};
 
+      obj.answer = text;
+      quizData.answers.push(obj);
+    });
 
+    fetch("http://localhost:3000/api/quizes", {
+      method: "POST",
 
-    const triggerInput = () => inputImg.click()
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // data: new FormData( quizData ),
+      processData: false,
+      contentType: false,
+      body: JSON.stringify(quizData),
+    })
+      .then((res) => res.json())
+      .then((res) => console.log(res));
+
+    console.log(quizData);
+  });
+  createSlider(mainCarousel.childNodes, inputQuizData.childNodes, section.querySelector(".send-new-quiz__next-btn"), section.querySelector(".send-new-quiz__prev-btn"));
+
+  function createQuizData(main) {
+    const newQuestion = document.createElement("div");
+    const span = document.createElement("span");
+    newQuestion.classList.add("new-question");
+    const imgWrapper = document.createElement("div");
+    imgWrapper.classList.add("input-quiz-data__img");
+    const inputImgDiv = document.createElement("div");
+    inputImgDiv.classList.add("input-img");
+    const inputImg = document.createElement("input");
+    inputImg.type = "file";
+    const answerOnQuestionWrapper = document.createElement("div");
+    answerOnQuestionWrapper.classList.add("answer-on-question");
+    const inputAnswerOnQuestion = document.createElement("input");
+    inputAnswerOnQuestion.type = "text";
+
+    span.textContent = "Enter right answer";
+    inputImg.setAttribute("accept", ".png,.jpg,.jpeg");
+
+    const open = document.createElement("button");
+    open.textContent = "Choose file";
+
+    inputAnswerOnQuestion.addEventListener("change", () => {
+      checkValidation(section);
+    });
+
+    const triggerInput = () => inputImg.click();
 
     const changeHandler = (event) => {
-      if(!event.target.files.length){
-        return
-      }
-      console.log('work')
-      const file = Array.from(event.target.files) 
-
-      const reader = new FileReader()
-
-      reader.onload = e =>{
-        console.log('work reader')
-        let src = e.target.result
-        const img = document.createElement('img')
-        img.setAttribute('src',src)
-        img.setAttribute('alt',file.name)
-        console.log(e.target.result) 
-        inputImgDiv.appendChild(img)
+      if (!event.target.files.length) {
+        return;
       }
 
+      inputImgDiv.innerHTML = "";
+      const file = Array.from(event.target.files);
 
-    }
+      const reader = new FileReader();
 
-    open.addEventListener('click', triggerInput)
-    inputImg.addEventListener('change', changeHandler)
+      reader.onload = (e) => {
+        let src = e.target.result;
+        const img = document.createElement("img");
+        img.setAttribute("src", src);
+        img.setAttribute("alt", file.name);
 
+        inputImgDiv.appendChild(img);
+      };
 
+      reader.readAsDataURL(file[0]);
+      checkValidation(section);
+    };
 
-    imgWrapper.appendChild(open)
-    imgWrapper.appendChild(inputImgDiv)
-    imgWrapper.appendChild(inputImg)
-    
-    
+    open.addEventListener("click", triggerInput);
+    inputImg.addEventListener("change", changeHandler);
 
+    imgWrapper.appendChild(open);
+    imgWrapper.appendChild(inputImgDiv);
+    imgWrapper.appendChild(inputImg);
 
+    answerOnQuestionWrapper.appendChild(inputAnswerOnQuestion);
+    answerOnQuestionWrapper.appendChild(span);
 
-    answerOnQuestionWrapper.appendChild(inputAnswerOnQuestion)
-    answerOnQuestionWrapper.appendChild(span)
-
-    newQuestion.appendChild(imgWrapper)
-    newQuestion.appendChild(answerOnQuestionWrapper)
-    main.appendChild(newQuestion)
-
+    newQuestion.appendChild(imgWrapper);
+    newQuestion.appendChild(answerOnQuestionWrapper);
+    main.appendChild(newQuestion);
   }
 
-  function createControls(main){
-    const controls = document.createElement('div')
-    controls.classList.add('send-new-quiz__controls')
-    const next = document.createElement('div')
-    next.classList.add('send-new-quiz__next-btn')
-    next.textContent = "Next"
-    const prev = document.createElement('div')
-    prev.classList.add('send-new-quiz__prev-btn')
-    prev.textContent = "Prev"
-    const ready = document.createElement('div')
-    ready.classList.add('send-new-quiz__ready-btn')
-    ready.textContent = 'Ready'
+  function createControls(main) {
+    const controls = document.createElement("div");
+    controls.classList.add("send-new-quiz__controls");
+    const next = document.createElement("button");
+    next.classList.add("send-new-quiz__next-btn");
+    next.textContent = "Next";
+    const prev = document.createElement("button");
+    prev.classList.add("send-new-quiz__prev-btn");
+    prev.textContent = "Prev";
+    const ready = document.createElement("button");
+    ready.classList.add("send-new-quiz__ready-btn");
+    ready.disabled = true;
+    ready.textContent = "Ready";
 
-
-    controls.appendChild(prev)
-    controls.appendChild(ready)
-    controls.appendChild(next)
-    main.appendChild(controls)
+    controls.appendChild(prev);
+    controls.appendChild(ready);
+    controls.appendChild(next);
+    main.appendChild(controls);
   }
 
-  function createCarouselBlock(main){
-    let div = document.createElement('div')
-    div.classList.add('carousel__block')
-    main.appendChild(div)
+  function createCarouselBlock(main) {
+    let div = document.createElement("div");
+    div.classList.add("carousel__block");
+    main.appendChild(div);
   }
-
-
 }
-

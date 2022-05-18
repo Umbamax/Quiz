@@ -161,6 +161,15 @@ app.put("/api/users", jsonParser, function (req, res) {
   }
 });
 
+
+//получаем данные викторины
+app.post("/api/quizes", jsonParser, function (req, res) {
+  if (!req.body) return res.sendStatus(400);
+  console.log(req.body);
+
+})
+
+
 app.listen(3000, function () {
   console.log("Сервер ожидает подключения...");
 });
