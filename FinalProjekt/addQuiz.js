@@ -132,39 +132,51 @@ function createSendNewQuizPage(quizData) {
   const send = section.querySelector(".send-new-quiz__ready-btn");
 
   send.addEventListener("click", () => {
+    const toBase64 = (file) =>
+      new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+      });
     quizData.answers = [];
-    // const mainData = section.querySelectorAll('.new-question')
-    inputQuizData.childNodes.forEach((el) => {
-      const file = Array.from(el.querySelector('input[type="file"]').files);
-      const text = el.querySelector('input[type="text"]').value;
+    new Promise((res, rej) => {
+      inputQuizData.childNodes.forEach(async (el) => {
+        let obj = {};
+        const file = Array.from(el.querySelector('input[type="file"]').files);
+        const text = el.querySelector('input[type="text"]').value;
+        obj.file = await toBase64(file[0])
+        // obj.file = obj.file.replace(/^data:image\/(png|jpg);base64,/, "");
+        // const reader = new FileReader();
 
-      const reader = new FileReader();
+        // reader.onload = (e) => {
+        //   obj.file = e.target.result;
+        //   obj.file = obj.file.replace(/^data:image\/(png|jpg);base64,/, "");
+        // };
 
-      reader.onload = (e) => {
-        obj.file = e.target.result;
-        obj.file = obj.file.replace(/^data:image\/(png|jpg);base64,/, "");
-      };
+        // reader.readAsDataURL(file[0]);
 
-      reader.readAsDataURL(file[0]);
-      let obj = {};
+        obj.answer = text;
+        await quizData.answers.push(obj);
+      });
+      res(quizData);
+    }).then((res) => {
+      console.log("fetch");
+      console.log(res);
 
-      obj.answer = text;
-      quizData.answers.push(obj);
+      // setTimeout(() => {
+        await fetch("http://localhost:3000/api/quizes", {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify(res),
+        });
+      // },4000);
     });
 
-    fetch("http://localhost:3000/api/quizes", {
-      method: "POST",
-
-      headers: {
-        "Content-Type": "application/json",
-      },
-      // data: new FormData( quizData ),
-      processData: false,
-      contentType: false,
-      body: JSON.stringify(quizData),
-    })
-      .then((res) => res.json())
-      .then((res) => console.log(res));
+    // const mainData = section.querySelectorAll('.new-question')
 
     console.log(quizData);
   });
