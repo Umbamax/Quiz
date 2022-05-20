@@ -13,12 +13,13 @@ app.use(cors());
 app.use(express.json({limit: '500mb'}));
 app.use(express.urlencoded({limit: '500mb'}));
 
-const filePath = "users.json";
+const usersJSONPath = "users.json"
+const quizesJSONPath = "quizes.json"
 app.get("/api/users", function (req, res) {
-  const content = fs.readFileSync(filePath, "utf8");
+  const content = fs.readFileSync(usersJSONPath, "utf8");
   const users = JSON.parse(content);
   res.send(users);
-});
+})
 // // получение одного пользователя по id
 // app.get("/api/users/:id", function (req, res) {
 //   const id = req.params.id; // получаем id
@@ -46,9 +47,8 @@ app.get("/api/users", function (req, res) {
 app.get("/api/users/:login&:pass", function (req, res) {
   const login = req.params.login; // получаем login
   const password = req.params.pass; // получаем login
-  console.log(login);
-  console.log(password);
-  const content = fs.readFileSync(filePath, "utf8");
+
+  const content = fs.readFileSync(usersJSONPath, "utf8");
   const users = JSON.parse(content);
   let user = null;
   // находим в массиве пользователя по login
@@ -65,7 +65,7 @@ app.get("/api/users/:login&:pass", function (req, res) {
   if (user) {
     res.send(user);
   } else {
-    res.status(404).send();
+    res.status(404).send()
   }
 });
 
@@ -82,7 +82,7 @@ app.post("/api/users", jsonParser, function (req, res) {
 
   let user = { name: userName, login: userLogin, email: userEmail, password: userPassword, isAdmin: false };
 
-  let data = fs.readFileSync(filePath, "utf8");
+  let data = fs.readFileSync(usersJSONPath, "utf8");
   let users = JSON.parse(data);
   //поверяем на дубль пользователя
   for (let i = 0; i < users.length; i++) {
@@ -109,7 +109,7 @@ app.post("/api/users", jsonParser, function (req, res) {
 // удаление пользователя по id
 app.delete("/api/users/:id", function (req, res) {
   const id = req.params.id;
-  let data = fs.readFileSync(filePath, "utf8");
+  let data = fs.readFileSync(usersJSONPath, "utf8");
   let users = JSON.parse(data);
   let index = -1;
   // находим индекс пользователя в массиве
@@ -140,7 +140,7 @@ app.put("/api/users", jsonParser, function (req, res) {
   const userEmail = req.body.email;
   const userPassword = req.body.password;
 
-  let data = fs.readFileSync(filePath, "utf8");
+  let data = fs.readFileSync(usersJSONPath, "utf8");
   const users = JSON.parse(data);
   let user;
   for (let i = 0; i < users.length; i++) {
@@ -167,8 +167,37 @@ app.put("/api/users", jsonParser, function (req, res) {
 //получаем данные викторины
 app.post("/api/quizes", jsonParser, function (req, res) {
   if (!req.body) return res.sendStatus(400);
-  console.log(req.body);
+  console.log(req.body.answers);
+  // const userName = req.body.name;
+  // const userLogin = req.body.login;
+  // const userEmail = req.body.email;
+  // const userPassword = req.body.password;
+  const quiz = req.body
+  // let user = { name: userName, login: userLogin, email: userEmail, password: userPassword, isAdmin: false };
 
+  let data = fs.readFileSync(quizesJSONPath, "utf8");
+  const quizes = JSON.parse(data);
+  //поверяем на дубль пользователя
+  // for (let i = 0; i < users.length; i++) {
+  //   if (users[i].login === userLogin || users[i].email === userEmail) {
+  //     return res.status(409).send();
+  //   }
+  // }
+  // находим максимальный id
+  const id = Math.max.apply(
+    Math,
+    quizes.map((o) => {
+      return o.id;
+    })
+  );
+  // увеличиваем его на единицу
+  quiz.id = id + 1;
+  // добавляем пользователя в массив
+  quizes.push(quiz);
+  data = JSON.stringify(quizes);
+  // перезаписываем файл с новыми данными
+  fs.writeFileSync("quizes.json", data);
+  res.send(quiz);
 })
 
 

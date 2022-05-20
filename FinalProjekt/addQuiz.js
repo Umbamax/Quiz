@@ -37,7 +37,6 @@ typeOfAnswersRadios.forEach((el) =>
 
 typeOfQuestionsRadios.forEach((el) =>
   el.addEventListener("change", () => {
-    console.log("dasdadad");
     typeOfQuestions = el.value;
     if (multiQuestionRadioBtn.checked) {
       textForSimpleQuestion.value = "";
@@ -103,10 +102,6 @@ sbmtSettings.addEventListener("click", () => {
   }
 });
 
-function isCorrectNumber(num) {
-  return num < 1 || num > 10 ? false : true;
-}
-
 // функция создания страницы добавления викторины
 
 function createSendNewQuizPage(quizData) {
@@ -130,56 +125,49 @@ function createSendNewQuizPage(quizData) {
 
   createControls(section);
   const send = section.querySelector(".send-new-quiz__ready-btn");
+  // quizData.answers = {};
 
   send.addEventListener("click", () => {
-    const toBase64 = (file) =>
-      new Promise((resolve, reject) => {
+    const toBase64 = (file, answer, wrongAnswers) =>
+      new Promise((resolve) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
+        reader.onload = () => resolve({ file: reader.result, answer, wrongAnswers });
       });
-    quizData.answers = [];
-    new Promise((res, rej) => {
-      inputQuizData.childNodes.forEach(async (el) => {
-        let obj = {};
-        const file = Array.from(el.querySelector('input[type="file"]').files);
-        const text = el.querySelector('input[type="text"]').value;
-        obj.file = await toBase64(file[0])
-        // obj.file = obj.file.replace(/^data:image\/(png|jpg);base64,/, "");
-        // const reader = new FileReader();
+    const promises = Array.from(inputQuizData.childNodes).map((el) => {
+      const file = Array.from(el.querySelector('input[type="file"]').files);
+      const text = el.querySelector('input[type="text"]').value;
 
-        // reader.onload = (e) => {
-        //   obj.file = e.target.result;
-        //   obj.file = obj.file.replace(/^data:image\/(png|jpg);base64,/, "");
-        // };
+      const wrongAnswersContainer = el.querySelector(".wrong-answers-container");
+      
+      const wrongAnswersArr = [];
+      if (!!wrongAnswersContainer) {
+        const inputs = wrongAnswersContainer.querySelectorAll('input[type="text"]');
+        
+        inputs.forEach(el=>{
+          wrongAnswersArr.push(el.value)
+        })
+      }
 
-        // reader.readAsDataURL(file[0]);
-
-        obj.answer = text;
-        await quizData.answers.push(obj);
-      });
-      res(quizData);
-    }).then((res) => {
-      console.log("fetch");
-      console.log(res);
-
-      // setTimeout(() => {
-        await fetch("http://localhost:3000/api/quizes", {
-          method: "POST",
-
-          headers: {
-            "Content-Type": "application/json",
-          },
-
-          body: JSON.stringify(res),
-        });
-      // },4000);
+      return toBase64(file[0], text, wrongAnswersArr);
     });
+    Promise.all(promises).then((res) => {
+      
 
-    // const mainData = section.querySelectorAll('.new-question')
 
-    console.log(quizData);
+      quizData.answers = res
+      fetch("http://localhost:3000/api/quizes", {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify(quizData),
+      }).then(res=>console.log(res))
+    });
   });
+
   createSlider(mainCarousel.childNodes, inputQuizData.childNodes, section.querySelector(".send-new-quiz__next-btn"), section.querySelector(".send-new-quiz__prev-btn"));
 
   function createQuizData(main) {
@@ -242,6 +230,10 @@ function createSendNewQuizPage(quizData) {
     answerOnQuestionWrapper.appendChild(inputAnswerOnQuestion);
     answerOnQuestionWrapper.appendChild(span);
 
+    if (quizData.typeOfQuestions === "multiQuestion") {
+      createWrongAnswersInput(answerOnQuestionWrapper);
+    }
+
     newQuestion.appendChild(imgWrapper);
     newQuestion.appendChild(answerOnQuestionWrapper);
     main.appendChild(newQuestion);
@@ -272,4 +264,21 @@ function createSendNewQuizPage(quizData) {
     div.classList.add("carousel__block");
     main.appendChild(div);
   }
+}
+
+function createWrongAnswersInput(section) {
+  const div = document.createElement("div");
+  div.classList.add("wrong-answers-container");
+
+  for (let i = 0; i < 3; i++) {
+    const input = document.createElement("input");
+    input.type = "text";
+    div.appendChild(input);
+  }
+
+  section.appendChild(div);
+}
+
+function isCorrectNumber(num) {
+  return num < 1 || num > 10 ? false : true;
 }
