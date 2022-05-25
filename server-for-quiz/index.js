@@ -46,7 +46,7 @@ app.get("/api/users", function (req, res) {
 
 app.get("/api/users/:login&:pass", function (req, res) {
   const login = req.params.login; // получаем login
-  const password = req.params.pass; // получаем login
+  const password = req.params.pass; // получаем pass
 
   const content = fs.readFileSync(usersJSONPath, "utf8");
   const users = JSON.parse(content);
@@ -56,9 +56,9 @@ app.get("/api/users/:login&:pass", function (req, res) {
     if (users[i].login === login) {
       user = users[i];
       if(user.password !== password){
-        return res.status(401).send();
+        return res.status(401).send()
       }
-      break;
+      break
     }
   }
   // отправляем пользователя
@@ -199,7 +199,11 @@ app.post("/api/quizes", jsonParser, function (req, res) {
   fs.writeFileSync("quizes.json", data);
   res.send(quiz);
 })
-
+app.get("/api/quizes", function (req, res) {
+  const content = fs.readFileSync(quizesJSONPath, "utf8");
+  const quizes = JSON.parse(content);
+  res.send(quizes);
+})
 
 app.listen(3000, function () {
   console.log("Сервер ожидает подключения...");
