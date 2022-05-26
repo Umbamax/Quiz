@@ -2,6 +2,7 @@
 
 
 
+
 window.onload = () => {
     if (!sessionStorage.getItem("hash")) {
       sessionStorage.setItem("hash", "#auth");
