@@ -46,7 +46,7 @@ app.get("/api/users", function (req, res) {
 
 app.get("/api/users/:login&:pass", function (req, res) {
   const login = req.params.login; // получаем login
-  const password = req.params.pass; // получаем pass
+  const password = req.params.pass; // получаем login
 
   const content = fs.readFileSync(usersJSONPath, "utf8");
   const users = JSON.parse(content);
@@ -56,9 +56,9 @@ app.get("/api/users/:login&:pass", function (req, res) {
     if (users[i].login === login) {
       user = users[i];
       if(user.password !== password){
-        return res.status(401).send()
+        return res.status(401).send();
       }
-      break
+      break;
     }
   }
   // отправляем пользователя
@@ -168,22 +168,14 @@ app.put("/api/users", jsonParser, function (req, res) {
 app.post("/api/quizes", jsonParser, function (req, res) {
   if (!req.body) return res.sendStatus(400);
   console.log(req.body.answers);
-  // const userName = req.body.name;
-  // const userLogin = req.body.login;
-  // const userEmail = req.body.email;
-  // const userPassword = req.body.password;
+  
   const quiz = req.body
-  // let user = { name: userName, login: userLogin, email: userEmail, password: userPassword, isAdmin: false };
+  
 
   let data = fs.readFileSync(quizesJSONPath, "utf8");
-  const quizes = JSON.parse(data);
-  //поверяем на дубль пользователя
-  // for (let i = 0; i < users.length; i++) {
-  //   if (users[i].login === userLogin || users[i].email === userEmail) {
-  //     return res.status(409).send();
-  //   }
-  // }
-  // находим максимальный id
+  const quizes = JSON.parse(data)
+
+  
   const id = Math.max.apply(
     Math,
     quizes.map((o) => {

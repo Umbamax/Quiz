@@ -20,7 +20,7 @@ export default function checkValidation(container) {
     if (!!wrongAnswersContainer) {
       let valid = true;
       const inputs = wrongAnswersContainer.querySelectorAll('input[type="text"]');
-      console.log(inputs)
+      
       inputs.forEach((el) => {
           
         if (!isFill(el.value)) {
@@ -29,11 +29,16 @@ export default function checkValidation(container) {
       })
     
 
+      let questionInput = block.querySelector('.enter-question')
+      if(!isFill(questionInput.value)){
+        valid = false
+      }
 
       if (!valid) {
         return false
       }
     }
+    
     const file = block.querySelector('input[type="file"]');
     const text = block.querySelector('input[type="text"]').value;
     const reader = new FileReader();

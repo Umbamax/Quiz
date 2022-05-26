@@ -1,3 +1,5 @@
+import createGame from "./createGame.js"
+
 export default function createQuizes(section) {
     const cardContent = section.querySelector('.choose-quiz')
     
@@ -26,6 +28,7 @@ function rand(min, max) {
 
 
 function createCard(obj,section){
+    // obj это полный объект данных
     const card = document.createElement("div")
     card.classList.add('quiz-level')
     const header = document.createElement('h3')
@@ -49,7 +52,3 @@ function createCard(obj,section){
     // section.appendChild(card)
 }
 
-
-function createGame(quiz){
-    
-}
