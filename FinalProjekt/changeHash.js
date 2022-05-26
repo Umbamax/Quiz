@@ -1,4 +1,5 @@
-import createQuiz from "./createQuizes.js"
+
+
 
 
 window.onload = () => {
@@ -18,7 +19,6 @@ const authPage = document.querySelector('.authorization')
 const chooseQuizPage = document.querySelector('.choose-quiz-wrapper')
 const addQuizPage = document.querySelector('.add-quiz-page')
 const sendNewQuizPage = document.querySelector('.send-new-quiz')
-const gamePage = document.querySelector('.game')
 
 function changeHash(){
 
@@ -27,7 +27,6 @@ function changeHash(){
     chooseQuizPage.hidden = true
     addQuizPage.hidden = true
     sendNewQuizPage.hidden = true
-    gamePage.hidden = true
     let user;
     switch(location.hash){
 
@@ -39,7 +38,6 @@ function changeHash(){
                 location.hash = "#auth"
                 return
             }
-            createQuiz(chooseQuizPage)
             sessionStorage.setItem("hash", "#chooseQuiz")
             chooseQuizPage.hidden = false
             break
@@ -56,9 +54,6 @@ function changeHash(){
               location.hash = "#auth"
             }
             sendNewQuizPage.hidden = false
-          break
-        case '#game':
-          gamePage.hidden = false
           break
         default:
              location.hash = "#auth"
