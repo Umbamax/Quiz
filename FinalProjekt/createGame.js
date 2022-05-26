@@ -10,6 +10,7 @@ export default function createGame(quizData){
 
     createCarousel(questionCounter, gameBoard)
     createAnswersField(questionWrapper,questionCounter, typeOfAnswers, typeOfQuestions, quizData)
+    gameBoard.appendChild(questionWrapper)
 }
 
 
@@ -33,7 +34,8 @@ function createCarouselBlock(main) {
 
 function createAnswersField(section,counter,typeAnswer,typeQuestion,quizData){
 
-    
+    console.log(typeAnswer)
+    console.log(typeQuestion)
 
     switch(typeAnswer){
         case '4txt':
@@ -70,9 +72,42 @@ function textAnswersMulti(quizData,section,counter){
         task.appendChild(question)
         const imageContainer = document.createElement('div')
         const image = document.createElement('img')
+        image.src = data.answers[idx].file
+        image.alt = 'Quiz image'
+        imageContainer.appendChild(image)
+        task.appendChild(imageContainer)
+
+        const answersContainer = document.createElement('div')
+        const answersArr = []
+        const rightAnswer = data.answers[idx].answer
+
+        createBtn(answersContainer,data.answers[idx].answer)
+        data.answers[idx].wrongAnswers.wrongAnswersArr.forEach(el=>createBtn(answersContainer,el))
+        task.appendChild(answersContainer)
+
+        section.appendChild(task)
+
+        function createBtn(container, value){
+            const button = document.createElement('button')
+            button.value = value
+            button.addEventListener('click', (e)=>{
+                e.preventDefault()
+                if(e.target.value === rightAnswer){
+                    console.log("true")
+                }else{
+                    console.log("false")
+                }
+            })
+            container.appendChild(button)
+        }
     }
 }
 
 
 // typeOfAnswers: "4txt"
 // typeOfQuestions
+
+function rand(min, max) {
+    let rand = min + Math.random() * (max + 1 - min);
+    return Math.floor(rand);
+  }
