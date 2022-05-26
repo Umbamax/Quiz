@@ -34,7 +34,7 @@ input[type = file]{
     margin: auto;
     position: relative;
     width: 720px;
-    height:510px;
+    height:310px;
     border: 1px solid black
 }
 .new-question{
