@@ -108,9 +108,6 @@ function createSendNewQuizPage(quizData) {
   const section = document.querySelector(".send-new-quiz");
   section.innerHTML = ""; //В случае повторного вызова функции сразу удаляем контент
 
-  const quizName = document.createElement('h3')
-  quizName.innerHTML = quizData.quizName
-
   const mainCarousel = document.createElement("div");
   const inputQuizData = document.createElement("div");
   mainCarousel.classList.add("carousel");
@@ -123,9 +120,7 @@ function createSendNewQuizPage(quizData) {
 
   mainCarousel.childNodes[0].classList.add("active-block");
   inputQuizData.childNodes[0].classList.add("active");
-
   section.appendChild(mainCarousel);
-  section.appendChild(quizName);
   section.appendChild(inputQuizData);
 
   createControls(section);
@@ -133,29 +128,20 @@ function createSendNewQuizPage(quizData) {
   // quizData.answers = {};
 
   send.addEventListener("click", () => {
-
     const toBase64 = (file, answer, wrongAnswers) =>
       new Promise((resolve) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = () => resolve({ file: reader.result, answer, wrongAnswers });
       });
-
     const promises = Array.from(inputQuizData.childNodes).map((el) => {
       const file = Array.from(el.querySelector('input[type="file"]').files);
       const text = el.querySelector('input[type="text"]').value;
 
       const wrongAnswersContainer = el.querySelector(".wrong-answers-container");
       
-      const multiQuestion = {};
-      let question
       const wrongAnswersArr = [];
       if (!!wrongAnswersContainer) {
-
-
-        let questionInput = el.querySelector('.enter-question')
-        question = questionInput.value
-
         const inputs = wrongAnswersContainer.querySelectorAll('input[type="text"]');
         
         inputs.forEach(el=>{
@@ -163,15 +149,11 @@ function createSendNewQuizPage(quizData) {
         })
       }
 
-      multiQuestion.wrongAnswersArr = wrongAnswersArr
-      multiQuestion.question = question
-
-      return toBase64(file[0], text, multiQuestion);
-    })
-
-
+      return toBase64(file[0], text, wrongAnswersArr);
+    });
     Promise.all(promises).then((res) => {
       
+
 
       quizData.answers = res
       fetch("http://localhost:3000/api/quizes", {
@@ -182,8 +164,8 @@ function createSendNewQuizPage(quizData) {
         },
 
         body: JSON.stringify(quizData),
-      }).then(res=>console.log(JSON.parse(res)))
-    })
+      }).then(res=>console.log(res))
+    });
   });
 
   createSlider(mainCarousel.childNodes, inputQuizData.childNodes, section.querySelector(".send-new-quiz__next-btn"), section.querySelector(".send-new-quiz__prev-btn"));
@@ -200,21 +182,6 @@ function createSendNewQuizPage(quizData) {
     inputImg.type = "file";
     const answerOnQuestionWrapper = document.createElement("div");
     answerOnQuestionWrapper.classList.add("answer-on-question");
-    const question = document.createElement("div");
-
-    if(quizData.typeOfQuestions === "multiQuestion"){
-      const questionInput = document.createElement("input")
-      const questionSpan = document.createElement("span")
-      questionSpan.textContent = "Enter question"
-      questionInput.classList.add('enter-question')
-      questionInput.addEventListener('change',()=>checkValidation(section))
-      question.appendChild(questionInput)
-      question.appendChild(questionSpan)
-
-    }else{
-      const questionName = document.createElement("h4")
-      question.appendChild(questionName)
-    }
     const inputAnswerOnQuestion = document.createElement("input");
     inputAnswerOnQuestion.type = "text";
 
@@ -268,7 +235,6 @@ function createSendNewQuizPage(quizData) {
     }
 
     newQuestion.appendChild(imgWrapper);
-    newQuestion.appendChild(question);
     newQuestion.appendChild(answerOnQuestionWrapper);
     main.appendChild(newQuestion);
   }
@@ -301,19 +267,12 @@ function createSendNewQuizPage(quizData) {
 }
 
 function createWrongAnswersInput(section) {
-
-
   const div = document.createElement("div");
   div.classList.add("wrong-answers-container");
 
   for (let i = 0; i < 3; i++) {
-
     const input = document.createElement("input");
     input.type = "text";
-    input.addEventListener("change",()=>{
-      const section = document.querySelector(".send-new-quiz");
-      checkValidation(section)
-    })
     div.appendChild(input);
   }
 
