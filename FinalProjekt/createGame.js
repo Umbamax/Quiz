@@ -1,3 +1,5 @@
+import createSlider from "./addQuizSlider.js";
+
 export default function createGame(quizData){
     const gameBoard = document.querySelector('.game-wrapper')
     gameBoard.innerHTML = ""
@@ -6,11 +8,18 @@ export default function createGame(quizData){
     const typeOfAnswers = quizData.typeOfAnswers
     const typeOfQuestions = quizData.typeOfQuestions
 
-    const questionWrapper = document.createElement('div')
+    
 
     createCarousel(questionCounter, gameBoard)
-    createAnswersField(questionWrapper,questionCounter, typeOfAnswers, typeOfQuestions, quizData)
-    gameBoard.appendChild(questionWrapper)
+    createAnswersField(gameBoard,questionCounter, typeOfAnswers, typeOfQuestions, quizData)
+    createControls(gameBoard)
+    const carousel = gameBoard.querySelector('.game__carousel')
+    const tasks = gameBoard.querySelector('.question-wrapper')
+    const prev = gameBoard.querySelector('.game__prev-btn')
+    const next = gameBoard.querySelector('.game__next-btn')
+
+
+    createSlider(carousel.childNodes, tasks.childNodes,next, prev)
 }
 
 
@@ -58,6 +67,7 @@ function createAnswersField(section,counter,typeAnswer,typeQuestion,quizData){
 function textAnswersMulti(quizData,section,counter){
     
     const mainQuestionWrapper = document.createElement('div')
+    mainQuestionWrapper.classList.add('question-wrapper')
     for(let i =0; i<counter; i++){
         // в данной функции создается вопрос, 4 текстовых ответа и добавляется картинка
         createTextQuestion(mainQuestionWrapper,quizData,i)
@@ -67,10 +77,15 @@ function textAnswersMulti(quizData,section,counter){
 
     function createTextQuestion(section, data,idx){
         const task = document.createElement('div')
+        task.classList.add('task')
+        if(idx===0){
+            task.classList.add('active-task')
+        }
         const question = document.createElement('h3')
         question.textContent = data.answers[idx].wrongAnswers.question
         task.appendChild(question)
         const imageContainer = document.createElement('div')
+        imageContainer.classList.add('image-container')
         const image = document.createElement('img')
         image.src = data.answers[idx].file
         image.alt = 'Quiz image'
@@ -78,27 +93,36 @@ function textAnswersMulti(quizData,section,counter){
         task.appendChild(imageContainer)
 
         const answersContainer = document.createElement('div')
+        answersContainer.classList.add('answers-container')
         const answersArr = []
         const rightAnswer = data.answers[idx].answer
 
-        createBtn(answersContainer,data.answers[idx].answer)
-        data.answers[idx].wrongAnswers.wrongAnswersArr.forEach(el=>createBtn(answersContainer,el))
+        createBtn(answersArr,data.answers[idx].answer)
+        data.answers[idx].wrongAnswers.wrongAnswersArr.forEach(el=>createBtn(answersArr,el))
+        shuffle(answersArr)
+        answersArr.forEach(el=>answersContainer.appendChild(el))
         task.appendChild(answersContainer)
 
         section.appendChild(task)
 
-        function createBtn(container, value){
+        function createBtn(arr, value){
+            const carouselBlocks = document.querySelectorAll('.game__carousel_block')
             const button = document.createElement('button')
             button.value = value
+            button.textContent = value
             button.addEventListener('click', (e)=>{
                 e.preventDefault()
+                if(carouselBlocks[idx].classList.contains('wrong') || carouselBlocks[idx].classList.contains('right')){
+                    return
+                }
                 if(e.target.value === rightAnswer){
+                    carouselBlocks[idx].classList.add('right')
                     console.log("true")
                 }else{
-                    console.log("false")
+                    carouselBlocks[idx].classList.add('wrong')
                 }
             })
-            container.appendChild(button)
+            arr.push(button)
         }
     }
 }
@@ -111,3 +135,21 @@ function rand(min, max) {
     let rand = min + Math.random() * (max + 1 - min);
     return Math.floor(rand);
   }
+
+  function shuffle(array) {
+  array.sort(() => Math.random() - 0.5);
+}
+
+function createControls(section){
+    const controls = document.createElement("div")
+    controls.classList.add("game__controls")
+    const next = document.createElement("button")
+    next.classList.add("game__next-btn")
+    next.textContent = "Next"
+    const prev = document.createElement("button")
+    prev.classList.add("game__prev-btn")
+    prev.textContent = "Prev"
+    controls.appendChild(prev)
+    controls.appendChild(next)
+    section.appendChild(controls)
+}

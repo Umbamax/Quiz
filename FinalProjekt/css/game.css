@@ -1,0 +1,82 @@
+.answers-container{
+    margin: auto;
+    width:640px;
+    height:270px;
+    display: flex;
+    flex-direction: row;
+     flex-wrap:wrap;
+     justify-content: space-between;
+}
+.answers-container > button {
+    width:270px;
+    height:90px;
+    border-radius: 7px;
+}
+.game__carousel{
+    display: flex;
+    justify-content: space-around;
+    height: 50px;
+    width: 100%; 
+}
+.game__carousel_block{
+    width: 60px;
+    height: 30px;
+    border: 1px solid black;
+}
+.right{
+    background-color: rgb(19, 211, 19);
+}
+.wrong{
+    background-color: rgb(240, 17, 17);
+}
+.question-wrapper{
+    width: auto;
+    height: 780px;
+    position: relative;
+    
+}
+.task{
+    position: absolute;
+    /* border: 1px solid blue; */
+    width: 1220px;
+    /* height: 490px; */
+    margin: auto;
+    left: 100%;
+    overflow-x: hidden;
+}
+.active-task{
+    /* top:50%; */
+left:50%;
+transform:translate(-50%, 0);
+}
+.image-container{
+    margin: auto;
+    position: relative;
+    width: 720px;
+    height:410px;
+}
+.image-container>img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.task >h3{
+    text-align: center;
+    font-size: 28px;
+}
+.game__controls{
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%, -50%);
+    width: 75%;
+}
+.game__controls>button{
+    display: block;
+    border: 1px solid black;
+    padding: 20px;
+    font-size:32px;
+    user-select: none
+}

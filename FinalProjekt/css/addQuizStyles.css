@@ -62,7 +62,6 @@ input[type = file]{
     width:740px;
     height: 120px;
 
-
 }
 
 .send-new-quiz__controls{
@@ -85,9 +84,11 @@ input[type = file]{
     height: 100%;
     object-fit: contain;
 }
+
 .correct-data{
     background-color: rgba(6, 236, 6, 0.808);
 }
+
 .active-block{
     background-color: rgb(132, 158, 158);
 }

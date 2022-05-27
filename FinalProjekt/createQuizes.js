@@ -3,14 +3,12 @@ import createGame from "./createGame.js"
 export default function createQuizes(section) {
     const cardContent = section.querySelector('.choose-quiz')
     
-    cardContent.childNodes.forEach(el=>{
-        console.log(el.classList)
-        
-        if(el.classList?.contains('quiz-level')){
-            cardContent.removeChild(el)
+    for(let i = cardContent.childNodes.length-1; i>=0;i--){
+        if(cardContent.childNodes[i].classList?.contains('quiz-level')){
+            cardContent.removeChild(cardContent.childNodes[i])
         }
-        
-    })
+    }
+    
 
   let quizData = {};
   fetch("http://localhost:3000/api/quizes")

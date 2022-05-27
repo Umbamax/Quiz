@@ -7,7 +7,7 @@
 }
 .caption{
   width: 1440px;
-  margin:  50px auto;
+  margin:  10px auto 25px;
   
   font-weight: 700;
   font-size: 36px;
@@ -16,7 +16,7 @@
 .section {
   width: 1440px;
   
-  
+  overflow-x: hidden;
   margin: auto;
   
 }

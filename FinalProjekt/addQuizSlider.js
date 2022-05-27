@@ -20,9 +20,9 @@ export default function createSlider(carousel, main, next,prev){
     const activeInput = n => {
     
       for (let slide of main){
-        slide.classList.remove('active')
+        slide.classList.remove('active-task')
       }
-      main[n].classList.add('active')
+      main[n].classList.add('active-task')
     }
     
 
