@@ -20,27 +20,7 @@ app.get("/api/users", function (req, res) {
   const users = JSON.parse(content);
   res.send(users);
 })
-// // получение одного пользователя по id
-// app.get("/api/users/:id", function (req, res) {
-//   const id = req.params.id; // получаем id
-//   console.log(id);
-//   const content = fs.readFileSync(filePath, "utf8");
-//   const users = JSON.parse(content);
-//   let user = null;
-//   // находим в массиве пользователя по id
-//   for (let i = 0; i < users.length; i++) {
-//     if (users[i].id == id) {
-//       user = users[i];
-//       break;
-//     }
-//   }
-//   // отправляем пользователя
-//   if (user) {
-//     res.send(user);
-//   } else {
-//     res.status(404).send();
-//   }
-// });
+
 
 // получение данных по логину
 
@@ -196,6 +176,57 @@ app.get("/api/quizes", function (req, res) {
   const quizes = JSON.parse(content);
   res.send(quizes);
 })
+
+app.put("/api/quizes", jsonParser, function (req, res) {
+  if (!req.body) return res.sendStatus(400);
+
+  console.log(req.body)
+
+  const quizName = req.body.quizName
+  const user = req.body.username
+  const result = req.body.result
+  console.log(user)
+
+  let data = fs.readFileSync(quizesJSONPath, "utf8");
+  const quizes = JSON.parse(data);
+
+  let quiz 
+
+  for(let i = 0; i < quizes.length; i++){
+    if(quizes[i].quizName == quizName){
+      quiz = quizes[i]
+      break
+    }
+  }
+
+  
+
+  if(quiz){
+
+    if(quiz.results){
+      const lastresult = quiz.results[user] || 0
+      if(result > lastresult){
+        quiz.results[user] = result
+        data = JSON.stringify(quizes)
+        fs.writeFileSync("quizes.json", data);
+        res.send("New record")
+      }
+      fs.writeFileSync("quizes.json", data);
+      res.send("Not record")
+      
+    }else{
+      quiz.results = {}
+      quiz.results[user] = result
+      data = JSON.stringify(quizes)
+      fs.writeFileSync("quizes.json", data);
+      res.send("New record")
+    }  
+
+  }else{
+    res.status(404).send(quiz)
+  }
+
+  });
 
 app.listen(3000, function () {
   console.log("Сервер ожидает подключения...");

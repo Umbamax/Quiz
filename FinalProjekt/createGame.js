@@ -1,4 +1,5 @@
 import createSlider from "./addQuizSlider.js";
+import results from "./results.js";
 
 export default function createGame(quizData){
     const gameBoard = document.querySelector('.game-wrapper')
@@ -43,8 +44,8 @@ function createCarouselBlock(main) {
 
 function createAnswersField(section,counter,typeAnswer,typeQuestion,quizData){
 
-    console.log(typeAnswer)
-    console.log(typeQuestion)
+
+    
 
     switch(typeAnswer){
         case '4txt':
@@ -74,6 +75,8 @@ function textAnswersMulti(quizData,section,counter){
     }
     section.appendChild(mainQuestionWrapper)
 
+    let answersCounter = 0;
+    let rightAnswersCounter = 0;
 
     function createTextQuestion(section, data,idx){
         const task = document.createElement('div')
@@ -95,7 +98,9 @@ function textAnswersMulti(quizData,section,counter){
         const answersContainer = document.createElement('div')
         answersContainer.classList.add('answers-container')
         const answersArr = []
+
         const rightAnswer = data.answers[idx].answer
+        const totalTasks = Number(data.counterOfQuestions) 
 
         createBtn(answersArr,data.answers[idx].answer)
         data.answers[idx].wrongAnswers.wrongAnswersArr.forEach(el=>createBtn(answersArr,el))
@@ -105,7 +110,9 @@ function textAnswersMulti(quizData,section,counter){
 
         section.appendChild(task)
 
+        
         function createBtn(arr, value){
+            
             const carouselBlocks = document.querySelectorAll('.game__carousel_block')
             const button = document.createElement('button')
             button.value = value
@@ -115,11 +122,20 @@ function textAnswersMulti(quizData,section,counter){
                 if(carouselBlocks[idx].classList.contains('wrong') || carouselBlocks[idx].classList.contains('right')){
                     return
                 }
+                answersCounter++
                 if(e.target.value === rightAnswer){
                     carouselBlocks[idx].classList.add('right')
-                    console.log("true")
+                    rightAnswersCounter++
                 }else{
                     carouselBlocks[idx].classList.add('wrong')
+                }
+                console.log(answersCounter)
+                console.log(totalTasks)
+                if(totalTasks == answersCounter){
+                    const user = JSON.parse(sessionStorage.getItem('user')) 
+
+                    const login = user.login
+                    results(login,data.quizName,rightAnswersCounter)
                 }
             })
             arr.push(button)
@@ -153,3 +169,5 @@ function createControls(section){
     controls.appendChild(next)
     section.appendChild(controls)
 }
+
+
