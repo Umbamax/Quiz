@@ -54,6 +54,7 @@ function createAnswersField(section,counter,typeAnswer,typeQuestion,quizData){
                     textAnswersMulti(quizData,section,counter)
                     break
                 case 'simpleQuestion':
+                    textAnswersSindge(quizData,section,counter)
                     break
             }
             break
@@ -117,6 +118,96 @@ function textAnswersMulti(quizData,section,counter){
             const button = document.createElement('button')
             button.value = value
             button.textContent = value
+            button.addEventListener('click', async (e)=>{
+                
+                if(carouselBlocks[idx].classList.contains('wrong') || carouselBlocks[idx].classList.contains('right')){
+                    return
+                }
+                answersCounter++
+                if(e.target.value === rightAnswer){
+                    carouselBlocks[idx].classList.add('right')
+                    rightAnswersCounter++
+                }else{
+                    carouselBlocks[idx].classList.add('wrong')
+                }
+                
+                if(totalTasks == answersCounter){
+                    const user = JSON.parse(sessionStorage.getItem('user')) 
+
+                    const login = user.login
+                   await results(login,data.quizName,rightAnswersCounter, totalTasks)
+                }
+                return false
+            })
+            arr.push(button)
+        }
+    }
+}
+
+
+function textAnswersSindge(quizData,section,counter){
+    const mainQuestionWrapper = document.createElement('div')
+    mainQuestionWrapper.classList.add('question-wrapper')
+    const allAnswers = []
+    quizData.answers.forEach(el => allAnswers.push(el.answer))
+    for(let i =0; i<counter; i++){
+        // в данной функции создается вопрос, 4 текстовых ответа и добавляется картинка
+        createTextQuestion(mainQuestionWrapper,quizData,i)
+    }
+    section.appendChild(mainQuestionWrapper)
+    
+
+    let answersCounter = 0;
+    let rightAnswersCounter = 0;
+
+    function createTextQuestion(section, data,idx){
+        const task = document.createElement('div')
+        task.classList.add('task')
+        if(idx===0){
+            task.classList.add('active-task')
+        }
+        const question = document.createElement('h3')
+        question.textContent = data.question
+        task.appendChild(question)
+        const imageContainer = document.createElement('div')
+        imageContainer.classList.add('image-container')
+        const image = document.createElement('img')
+        image.src = data.answers[idx].file
+        image.alt = 'Quiz image'
+        imageContainer.appendChild(image)
+        task.appendChild(imageContainer)
+
+        const answersContainer = document.createElement('div')
+        answersContainer.classList.add('answers-container')
+        
+
+
+
+        const taskAnswers = []
+        const rightAnswer = data.answers[idx].answer
+        taskAnswers.push(rightAnswer)
+
+        for(let i =0; i<3; i++){
+            genereteAnswers(allAnswers, taskAnswers)
+        }
+
+        const totalTasks = Number(data.counterOfQuestions) 
+        const btnsArra = []
+        // createBtn(btnsArra,data.answers[idx].answer)
+        taskAnswers.forEach(el=>createBtn(btnsArra,el))
+        shuffle(btnsArra)
+        btnsArra.forEach(el=>answersContainer.appendChild(el))
+        task.appendChild(answersContainer)
+
+        section.appendChild(task)
+
+        
+        function createBtn(btnsArra, value){
+            
+            const carouselBlocks = document.querySelectorAll('.game__carousel_block')
+            const button = document.createElement('button')
+            button.value = value
+            button.textContent = value
             button.addEventListener('click', (e)=>{
                 e.preventDefault()
                 if(carouselBlocks[idx].classList.contains('wrong') || carouselBlocks[idx].classList.contains('right')){
@@ -129,20 +220,28 @@ function textAnswersMulti(quizData,section,counter){
                 }else{
                     carouselBlocks[idx].classList.add('wrong')
                 }
-                console.log(answersCounter)
-                console.log(totalTasks)
+                
                 if(totalTasks == answersCounter){
                     const user = JSON.parse(sessionStorage.getItem('user')) 
 
                     const login = user.login
-                    results(login,data.quizName,rightAnswersCounter)
+                    results(login,data.quizName,rightAnswersCounter, totalTasks)
                 }
             })
-            arr.push(button)
+            btnsArra.push(button)
         }
     }
-}
+    
+    function genereteAnswers(allAnswers, taskAnswers){
+        let answer = allAnswers[rand(0, allAnswers.length - 1)]
+        if(taskAnswers.includes(answer)){
+            return genereteAnswers(allAnswers, taskAnswers)
+        }
+        taskAnswers.push(answer)
 
+    }
+
+}
 
 // typeOfAnswers: "4txt"
 // typeOfQuestions

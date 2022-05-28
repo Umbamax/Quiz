@@ -10,17 +10,16 @@ const jsonParser = express.json();
 
 app.use(express.static(__dirname + "/public"));
 app.use(cors());
-app.use(express.json({limit: '500mb'}));
-app.use(express.urlencoded({limit: '500mb'}));
+app.use(express.json({ limit: "500mb" }));
+app.use(express.urlencoded({ limit: "500mb" }));
 
-const usersJSONPath = "users.json"
-const quizesJSONPath = "quizes.json"
+const usersJSONPath = "users.json";
+const quizesJSONPath = "quizes.json";
 app.get("/api/users", function (req, res) {
   const content = fs.readFileSync(usersJSONPath, "utf8");
   const users = JSON.parse(content);
   res.send(users);
-})
-
+});
 
 // получение данных по логину
 
@@ -35,7 +34,7 @@ app.get("/api/users/:login&:pass", function (req, res) {
   for (let i = 0; i < users.length; i++) {
     if (users[i].login === login) {
       user = users[i];
-      if(user.password !== password){
+      if (user.password !== password) {
         return res.status(401).send();
       }
       break;
@@ -45,7 +44,7 @@ app.get("/api/users/:login&:pass", function (req, res) {
   if (user) {
     res.send(user);
   } else {
-    res.status(404).send()
+    res.status(404).send();
   }
 });
 
@@ -143,19 +142,16 @@ app.put("/api/users", jsonParser, function (req, res) {
   }
 });
 
-
 //получаем данные викторины
 app.post("/api/quizes", jsonParser, function (req, res) {
   if (!req.body) return res.sendStatus(400);
   console.log(req.body.answers);
-  
-  const quiz = req.body
-  
+
+  const quiz = req.body;
 
   let data = fs.readFileSync(quizesJSONPath, "utf8");
-  const quizes = JSON.parse(data)
+  const quizes = JSON.parse(data);
 
-  
   const id = Math.max.apply(
     Math,
     quizes.map((o) => {
@@ -170,63 +166,55 @@ app.post("/api/quizes", jsonParser, function (req, res) {
   // перезаписываем файл с новыми данными
   fs.writeFileSync("quizes.json", data);
   res.send(quiz);
-})
+});
 app.get("/api/quizes", function (req, res) {
   const content = fs.readFileSync(quizesJSONPath, "utf8");
   const quizes = JSON.parse(content);
   res.send(quizes);
-})
+});
 
 app.put("/api/quizes", jsonParser, function (req, res) {
   if (!req.body) return res.sendStatus(400);
 
-  console.log(req.body)
+  console.log(req.body);
 
-  const quizName = req.body.quizName
-  const user = req.body.username
-  const result = req.body.result
-  console.log(user)
+  const quizName = req.body.quizName;
+  const user = req.body.username;
+  const result = req.body.result;
+  console.log(user);
 
   let data = fs.readFileSync(quizesJSONPath, "utf8");
   const quizes = JSON.parse(data);
 
-  let quiz 
+  let quiz;
 
-  for(let i = 0; i < quizes.length; i++){
-    if(quizes[i].quizName == quizName){
-      quiz = quizes[i]
-      break
+  for (let i = 0; i < quizes.length; i++) {
+    if (quizes[i].quizName == quizName) {
+      quiz = quizes[i];
+      break;
     }
   }
 
-  
-
-  if(quiz){
-
-    if(quiz.results){
-      const lastresult = quiz.results[user] || 0
-      if(result > lastresult){
-        quiz.results[user] = result
-        data = JSON.stringify(quizes)
-        fs.writeFileSync("quizes.json", data);
-        res.send("New record")
+  if (quiz) {
+    let isRecord = false
+    if (quiz.results) {
+      const lastresult = quiz.results[user] || -1;
+      if (result > lastresult) {
+        quiz.results[user] = result;
+        isRecord = true
       }
-      fs.writeFileSync("quizes.json", data);
-      res.send("Not record")
-      
-    }else{
-      quiz.results = {}
-      quiz.results[user] = result
-      data = JSON.stringify(quizes)
-      fs.writeFileSync("quizes.json", data);
-      res.send("New record")
-    }  
-
-  }else{
-    res.status(404).send(quiz)
+    } else {
+      quiz.results = {};
+      quiz.results[user] = result;
+      isRecord = true
+    }
+    data = JSON.stringify(quizes);
+    fs.writeFileSync("quizes.json", data);
+    res.send(`${isRecord}`);
+  } else {
+    res.status(404).send(quiz);
   }
-
-  });
+});
 
 app.listen(3000, function () {
   console.log("Сервер ожидает подключения...");
