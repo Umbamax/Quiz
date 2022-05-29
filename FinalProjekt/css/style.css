@@ -3,11 +3,23 @@
   padding: 0;
   box-sizing: border-box;
   font-size: 22px;
- 
+  overflow: hidden;
+}
+main{
+  background-color: #5b6ec3;
+  overflow: hidden;
+  height: 100vh;
+}
+.header{
+  background-color:#3a28a7;
+  color: white;
+  height:76px;
+  display: flex;
+  align-self: center;
 }
 .caption{
   width: 1440px;
-  margin:  10px auto 25px;
+  margin: auto;
   
   font-weight: 700;
   font-size: 36px;
@@ -20,12 +32,29 @@
   margin: auto;
   
 }
-
+.form_input > label{
+  font-weight: 400;
+    
+    pointer-events: none;
+    left: 0.3125rem;
+    top: -1.25rem;
+    font-size: 1rem;
+    color: #666;
+}
+.form_input > input{
+  border: none;
+    border-bottom: 1px solid #e7e8e9;
+}
+.form_input > input:focus{
+  outline: 0;
+}
 .authorization__choose-mode {
+  
   display: flex;
   margin: auto;
   justify-content: center;
   margin-bottom: 25px;
+  margin-top: 30px;
 }
 
 .mode_btn {
@@ -65,9 +94,9 @@
 
 .authorization__wrapper {
   width: 720px;
-  height: 80vh;
-  
-  margin: auto;
+  height: 60vh;
+  background-color:white;
+  margin: 70px auto;
   vertical-align: middle;
   overflow: hidden;
 }
@@ -148,7 +177,7 @@ input[type=submit]:active {
   border-radius: 19px;
   background-color: rgb(211, 21, 21);
   right: 3%;
-  top: 3%;
+  top: 10%;
   visibility: hidden;
 }
 
@@ -160,9 +189,12 @@ input[type=submit]:active {
 }
 .quiz-level{
   display: block;
-  width: 400px;
+  width: 420px;
   margin: 20px;
-
+  background-color: #f7f7f7;
+  padding-bottom: 20px;
+  box-shadow: 0 16px 32px rgb(0 0 0 / 8%);
+  transition: all 0.1s linear;
 }
 .quiz-level__header{
   text-align: center;
@@ -171,11 +203,12 @@ input[type=submit]:active {
 .quiz-level__background-img{
   margin: auto;
   width: 400px;
+  background-color: #cacaca;
 }
 .quiz-level__background-img > img {
   margin: auto;
   display: block;
-  height: 210px
+  height: 230px
 }
 .quiz-level:hover{
   transform: scale(1.07);

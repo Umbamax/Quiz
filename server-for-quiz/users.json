@@ -9,5 +9,6 @@
   { "name": "2", "login": "2", "email": "umbxia@gmail.com", "password": "2", "isAdmin": false, "id": 8 },
   { "name": "2", "login": "22", "email": "iasasdad@ad.com", "password": "2", "isAdmin": false, "id": 9 },
   { "name": "12344", "login": "12344", "email": "1234@as.3", "password": "1", "isAdmin": false, "id": 10 },
-  { "name": "umbomaxia@gmail.com", "login": "TerkinVasilii2", "email": "1234@as.33", "password": "4", "isAdmin": false, "id": 11 }
+  { "name": "umbomaxia@gmail.com", "login": "TerkinVasilii2", "email": "1234@as.33", "password": "4", "isAdmin": false, "id": 11 },
+  { "name": "Илья", "login": "Umbamax2", "email": "nehjdasdxbr@gmail.com", "password": "1234", "isAdmin": false, "id": 12 }
 ]

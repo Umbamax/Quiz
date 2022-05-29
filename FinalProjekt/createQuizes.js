@@ -10,7 +10,7 @@ export default function createQuizes(section) {
     }
     
 
-  let quizData = {};
+  
   fetch("http://localhost:3000/api/quizes")
     .then((res) => res.json())
     .then((res) => {
@@ -38,8 +38,19 @@ function createCard(obj,section){
     img.alt = 'Image for quiz'
     imageContainer.appendChild(img)
     header.textContent = obj.quizName
+
+    const resultBox = document.createElement('div')
+    const total = obj.counterOfQuestions
+    let user = JSON.parse(sessionStorage.getItem('user'))
+    let currentUserResult = obj?.results?.[user.login]
+    if(currentUserResult == undefined){
+        currentUserResult = 0
+    }
+    resultBox.textContent = `${currentUserResult} / ${total}`
     card.appendChild(header)
     card.appendChild(imageContainer)
+    card.appendChild(resultBox)
+    
     section.insertAdjacentElement('afterbegin', card)
 
     card.addEventListener('click',()=>{

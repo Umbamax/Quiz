@@ -100,14 +100,17 @@ function chechAllNecessariInput(event) {
     }).then((res) => {
       if (res.status === 409) {
         erorAuth.innerHTML = "Данный логин и/или email заняты";
+        erorAuth.style.color = "white";
         erorAuth.style.visibility = "visible";
         erorAuth.style.backgroundColor = "rgb(211, 21, 21)";
         setTimeout(() => {
           erorAuth.style.visibility = "hidden";
         }, 2000);
       } else if (res.status >= 200 && res.status < 300) {
+
         document.forms.sendUser.reset();
         erorAuth.innerHTML = "Регистрация прошла успешно";
+        erorAuth.style.color = "white";
         erorAuth.style.visibility = "visible";
         erorAuth.style.backgroundColor = "rgb(3, 179, 0)";
         setTimeout(() => {
@@ -115,7 +118,15 @@ function chechAllNecessariInput(event) {
           erorAuth.style.visibility = "hidden";
         }, 2000);
       }
-    });
+    }).catch(rej=>{
+      erorAuth.innerHTML = "Сервер временно недоступен";
+        erorAuth.style.visibility = "visible";
+        erorAuth.style.backgroundColor = "rgb(211, 21, 21)";
+        erorAuth.style.color = "white";
+        setTimeout(() => {
+          erorAuth.style.visibility = "hidden";
+        }, 2000);
+    })
   }
 }
 
