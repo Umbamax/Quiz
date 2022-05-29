@@ -59,6 +59,7 @@ function createAnswersField(section,counter,typeAnswer,typeQuestion,quizData){
             }
             break
         case '4img':
+            imgAnswersSindge(quizData,section,counter)
             break
     }
 
@@ -242,6 +243,119 @@ function textAnswersSindge(quizData,section,counter){
     }
 
 }
+
+
+function imgAnswersSindge(quizData,section,counter){
+    const mainQuestionWrapper = document.createElement('div')
+    mainQuestionWrapper.classList.add('question-wrapper')
+    const allAnswers = []
+    quizData.answers.forEach(el => allAnswers.push(el.file))
+    for(let i =0; i<counter; i++){
+        // в данной функции создается вопрос, 4 текстовых ответа и добавляется картинка
+        createImgQuestion(mainQuestionWrapper,quizData,i)
+    }
+    section.appendChild(mainQuestionWrapper)
+    
+
+
+    let answersCounter = 0;
+    let rightAnswersCounter = 0;
+
+    function createImgQuestion(section, data,idx){
+        const task = document.createElement('div')
+        task.classList.add('task')
+
+        if(idx===0){
+            task.classList.add('active-task')
+        }
+
+        const question = document.createElement('h3')
+        question.textContent = data.question
+        task.appendChild(question)
+        // const imageContainer = document.createElement('div')
+        // imageContainer.classList.add('image-container')
+        // const image = document.createElement('img')
+        // image.src = data.answers[idx].file
+        // image.alt = 'Quiz image'
+        // imageContainer.appendChild(image)
+        // task.appendChild(imageContainer)
+        const answer = document.createElement('h2')
+        answer.textContent = data.answers[idx].answer
+        task.appendChild(answer)
+
+        const answersContainer = document.createElement('div')
+        answersContainer.classList.add('answers-container')
+        
+
+
+
+        const taskAnswers = []
+        const rightAnswer = data.answers[idx].file
+        taskAnswers.push(rightAnswer)
+
+        for(let i =0; i<3; i++){
+            genereteAnswers(allAnswers, taskAnswers)
+        }
+
+        const totalTasks = Number(data.counterOfQuestions) 
+        const btnsArra = []
+        // createBtn(btnsArra,data.answers[idx].answer)
+        taskAnswers.forEach(el=>createBtn(btnsArra,el))
+        shuffle(btnsArra)
+        btnsArra.forEach(el=>answersContainer.appendChild(el))
+        task.appendChild(answersContainer)
+
+        section.appendChild(task)
+
+
+        
+        function createBtn(btnsArra, value){
+            
+            const carouselBlocks = document.querySelectorAll('.game__carousel_block')
+            const imgContaiter = document.createElement('div')
+            imgContaiter.classList.add('task__image-container')
+
+            const image = document.createElement('img')
+            image.src = value
+            image.alt = 'Quiz image'
+            imgContaiter.appendChild(image)
+            
+
+            imgContaiter.addEventListener('click', (e)=>{
+                e.preventDefault()
+                if(carouselBlocks[idx].classList.contains('wrong') || carouselBlocks[idx].classList.contains('right')){
+                    return
+                }
+                answersCounter++
+                if(e.target.closest('img').src === rightAnswer){
+                    carouselBlocks[idx].classList.add('right')
+                    rightAnswersCounter++
+                }else{
+                    carouselBlocks[idx].classList.add('wrong')
+                }
+                
+                if(totalTasks == answersCounter){
+                    const user = JSON.parse(sessionStorage.getItem('user')) 
+
+                    const login = user.login
+                    results(login,data.quizName,rightAnswersCounter, totalTasks)
+                }
+            })
+            btnsArra.push(imgContaiter)
+        }
+    }
+    
+    function genereteAnswers(allAnswers, taskAnswers){
+        let answer = allAnswers[rand(0, allAnswers.length - 1)]
+        if(taskAnswers.includes(answer)){
+            return genereteAnswers(allAnswers, taskAnswers)
+        }
+        taskAnswers.push(answer)
+
+    }
+
+}
+
 
 // typeOfAnswers: "4txt"
 // typeOfQuestions
