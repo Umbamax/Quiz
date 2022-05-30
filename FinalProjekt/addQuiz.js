@@ -122,7 +122,7 @@ function createSendNewQuizPage(quizData) {
   }
 
   mainCarousel.childNodes[0].classList.add("active-block");
-  inputQuizData.childNodes[0].classList.add("active");
+  inputQuizData.childNodes[0].classList.add("active-task");
 
   section.appendChild(mainCarousel);
   section.appendChild(quizName);
@@ -201,7 +201,7 @@ function createSendNewQuizPage(quizData) {
     const answerOnQuestionWrapper = document.createElement("div");
     answerOnQuestionWrapper.classList.add("answer-on-question");
     const question = document.createElement("div");
-
+    question.classList.add('add-quiz__question')
     if(quizData.typeOfQuestions === "multiQuestion"){
       const questionInput = document.createElement("input")
       const questionSpan = document.createElement("span")
@@ -228,6 +228,10 @@ function createSendNewQuizPage(quizData) {
       checkValidation(section);
     });
 
+    const enterQuestionWrapper = document.createElement('div')
+    enterQuestionWrapper.classList.add('right-answer-wrap')
+    enterQuestionWrapper.appendChild(inputAnswerOnQuestion)
+    enterQuestionWrapper.appendChild(span)
     const triggerInput = () => inputImg.click();
 
     const changeHandler = (event) => {
@@ -260,8 +264,8 @@ function createSendNewQuizPage(quizData) {
     imgWrapper.appendChild(inputImgDiv);
     imgWrapper.appendChild(inputImg);
 
-    answerOnQuestionWrapper.appendChild(inputAnswerOnQuestion);
-    answerOnQuestionWrapper.appendChild(span);
+    answerOnQuestionWrapper.appendChild(enterQuestionWrapper);
+    // answerOnQuestionWrapper.appendChild(span);
 
     if (quizData.typeOfQuestions === "multiQuestion") {
       createWrongAnswersInput(answerOnQuestionWrapper);

@@ -1,3 +1,12 @@
+.add-quiz__content{
+    width: 770px;
+    margin: auto;
+    margin-top: 170px;
+    background-color: rgb(247, 247, 244);
+    padding: 80px 0;
+}
+
+
 .add-quiz__field{
     
     max-width: 620px;
@@ -33,28 +42,35 @@ input[type = file]{
 .input-img{
     margin: auto;
     position: relative;
-    width: 720px;
-    height:510px;
+    width: 540px;
+    height:290px;
     border: 1px solid black
 }
 .new-question{
-    
+    display:flex;
+    flex-direction: column;
+    align-items: center;
     position: absolute;
-    border: 1px solid blue;
+   
     width: 1220px;
     margin: 15px;
     left: 100%
 }
-
-.active{
+.input-quiz-data__img > button{
+    display: block;
+    margin: 15px auto;
+}
+/* .active{
     left:0%
 
-}
+} */
 .input-quiz-data{
     display:flex;
+    
     overflow: hidden;
     position: relative;
     height: 660px;
+    background-color: rgb(231, 231, 231);
 }
 
 .answer-on-question{

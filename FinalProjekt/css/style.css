@@ -3,12 +3,12 @@
   padding: 0;
   box-sizing: border-box;
   font-size: 22px;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 main{
   background-color: #5b6ec3;
   overflow: hidden;
-  height: 100vh;
+  height: calc(100vh - 76px);
 }
 .header{
   background-color:#3a28a7;
@@ -212,10 +212,26 @@ input[type=submit]:active {
 }
 .quiz-level:hover{
   transform: scale(1.07);
+  cursor: pointer;
 }
 #addQuiz{
-  border: 1px solid #616161;
+  display: block;
+    width: 420px;
+    margin: 20px;
+    background-color: #f7f7f7;
+    padding-bottom: 20px;
+    box-shadow: 0 16px 32px rgb(0 0 0 / 8%);
+    transition: all 0.1s linear;
+    cursor: pointer;
 }
 #addQuiz:hover{
   transform: scale(1.07);
+}
+.result-box{
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-evenly;
+}
+.result-box > p{
+  display: block;
 }

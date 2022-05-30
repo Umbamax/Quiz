@@ -40,13 +40,20 @@ function createCard(obj,section){
     header.textContent = obj.quizName
 
     const resultBox = document.createElement('div')
+    resultBox.classList.add('result-box')
+    const resultText = document.createElement('div')
+    const p = document.createElement('p')
+    p.textContent = "Результат:"
     const total = obj.counterOfQuestions
     let user = JSON.parse(sessionStorage.getItem('user'))
     let currentUserResult = obj?.results?.[user.login]
     if(currentUserResult == undefined){
         currentUserResult = 0
     }
-    resultBox.textContent = `${currentUserResult} / ${total}`
+    resultText.textContent = `${currentUserResult} / ${total}`
+
+    resultBox.appendChild(p)
+    resultBox.appendChild(resultText)
     card.appendChild(header)
     card.appendChild(imageContainer)
     card.appendChild(resultBox)

@@ -37,15 +37,15 @@
 }
 .task{
     position: absolute;
-    /* border: 1px solid blue; */
+   
     width: 1220px;
-    /* height: 490px; */
+    
     margin: auto;
     left: 100%;
     overflow-x: hidden;
 }
 .active-task{
-    /* top:50%; */
+   
 left:50%;
 transform:translate(-50%, 0);
 }
