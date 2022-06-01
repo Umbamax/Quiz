@@ -6,7 +6,7 @@ const addQuizBtn = document.getElementById("addQuiz");
 addQuizBtn.addEventListener("click", () => {
   location.hash = "addQuiz";
 });
-const body = document.querySelector("body");
+
 const nameOfQuizInput = document.getElementById("nameOfQuiz");
 const counterOfQuestionsInput = document.getElementById("numberOfQuestion");
 const typeOfAnswersRadios = document.querySelectorAll('input[name="typeOfAnswers"]');
@@ -18,7 +18,7 @@ const errorSettings = document.querySelector(".add-quiz__error-value");
 errorSettings.hidden = true;
 let typeOfAnswers = "4img";
 let typeOfQuestions = "simpleQuestion";
-// addPopup(counterOfQuestionsInput, isCorrectNumber)
+
 const sbmtSettings = document.getElementById("submitAddQuizSettings");
 
 typeOfAnswersRadios.forEach((el) =>
@@ -64,7 +64,7 @@ sbmtSettings.addEventListener("click", () => {
   let isValid = true;
   if (!isCorrectNumber(counterOfQuestionsInput.value)) {
     isValid = false;
-    errorSettings.innerHTML += "Неверное количество вопросов. ";
+    errorSettings.innerHTML += "Неверное количество вопросов. Число вопросов должно быть от 4 до 20.";
     errorSettings.hidden = false;
   }
   if (!isFill(nameOfQuizInput.value)) {
@@ -152,6 +152,7 @@ function createSendNewQuizPage(quizData) {
       const wrongAnswersArr = [];
       if (!!wrongAnswersContainer) {
 
+        
 
         let questionInput = el.querySelector('.enter-question')
         question = questionInput.value
@@ -161,6 +162,7 @@ function createSendNewQuizPage(quizData) {
         inputs.forEach(el=>{
           wrongAnswersArr.push(el.value)
         })
+
       }
 
       multiQuestion.wrongAnswersArr = wrongAnswersArr
@@ -205,11 +207,12 @@ function createSendNewQuizPage(quizData) {
     if(quizData.typeOfQuestions === "multiQuestion"){
       const questionInput = document.createElement("input")
       const questionSpan = document.createElement("span")
-      questionSpan.textContent = "Enter question"
+      questionSpan.textContent = "Введите вопрос"
       questionInput.classList.add('enter-question')
       questionInput.addEventListener('change',()=>checkValidation(section))
-      question.appendChild(questionInput)
+      
       question.appendChild(questionSpan)
+      question.appendChild(questionInput)
 
     }else{
       const questionName = document.createElement("h4")
@@ -218,7 +221,7 @@ function createSendNewQuizPage(quizData) {
     const inputAnswerOnQuestion = document.createElement("input");
     inputAnswerOnQuestion.type = "text";
 
-    span.textContent = "Enter right answer";
+    span.textContent = "Введите правильный ответ";
     inputImg.setAttribute("accept", ".png,.jpg,.jpeg");
 
     const open = document.createElement("button");
@@ -230,8 +233,9 @@ function createSendNewQuizPage(quizData) {
 
     const enterQuestionWrapper = document.createElement('div')
     enterQuestionWrapper.classList.add('right-answer-wrap')
-    enterQuestionWrapper.appendChild(inputAnswerOnQuestion)
     enterQuestionWrapper.appendChild(span)
+    enterQuestionWrapper.appendChild(inputAnswerOnQuestion)
+    
     const triggerInput = () => inputImg.click();
 
     const changeHandler = (event) => {
@@ -307,9 +311,12 @@ function createSendNewQuizPage(quizData) {
 function createWrongAnswersInput(section) {
 
 
-  const div = document.createElement("div");
-  div.classList.add("wrong-answers-container");
-
+  const div = document.createElement("div")
+  div.classList.add("wrong-answers-container")
+  const span = document.createElement('span')
+  span.textContent = 'Введите неправильные ответы'
+  const wrongAnswers = document.createElement('div')
+  wrongAnswers.classList.add('wrong-answers')
   for (let i = 0; i < 3; i++) {
 
     const input = document.createElement("input");
@@ -318,12 +325,15 @@ function createWrongAnswersInput(section) {
       const section = document.querySelector(".send-new-quiz");
       checkValidation(section)
     })
-    div.appendChild(input);
+    wrongAnswers.appendChild(input);
   }
+  div.appendChild(span)
+  div.appendChild(wrongAnswers)
+
 
   section.appendChild(div);
 }
 
 function isCorrectNumber(num) {
-  return num < 1 || num > 10 ? false : true;
+  return num < 4 || num > 20 ? false : true;
 }

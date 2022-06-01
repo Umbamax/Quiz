@@ -10,25 +10,35 @@ main{
   overflow: hidden;
   height: calc(100vh - 76px);
 }
-.header{
+header{
+  
   background-color:#3a28a7;
   color: white;
   height:76px;
   display: flex;
   align-self: center;
 }
-.caption{
+.header{
   width: 1440px;
   margin: auto;
+  color: white;
+  height:76px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   
+}
+.caption{
+ 
+  width: 700px;
   font-weight: 700;
   font-size: 36px;
   text-align: center;
 }
 .section {
   width: 1440px;
-  
-  overflow-x: hidden;
+  z-index: 1;
+  overflow: hidden;
   margin: auto;
   
 }
@@ -234,4 +244,17 @@ input[type=submit]:active {
 }
 .result-box > p{
   display: block;
+}
+.home>img{
+  
+  
+  width: 77px;
+  height: 77px;
+  object-fit: contain;
+}
+.logout>img{
+  display: flex;
+  align-self: center;
+  width: 50px;
+  height: 50px;
 }

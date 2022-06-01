@@ -31,9 +31,9 @@
     width: 100%;    
 }
 .carousel__block{
-    width: 80px;
-    height: 30px;
-    border: 1px solid green;
+    width: 50px;
+    height: 20px;
+    border: 1px solid rgb(251, 255, 0);
     align-self: center;
 }
 input[type = file]{
@@ -75,24 +75,29 @@ input[type = file]{
 
 .answer-on-question{
     
-    width:740px;
+    width:1140px;
     height: 120px;
 
 }
 
 .send-new-quiz__controls{
+    margin-top: 20px;
     display: flex;
     justify-content:space-between;
 }
 
 .send-new-quiz__controls>button{
     display: block;
-    border: 1px solid black;
-    padding: 20px;
+    
+    padding: 16px;
     font-size:32px;
     user-select: none
 }
-
+.send-new-quiz__controls>button:hover{
+    cursor: pointer;
+    transform: scale(1.04);
+    transition: all 0.1s linear;
+}
 
 
 .input-img > img{
@@ -106,5 +111,66 @@ input[type = file]{
 }
 
 .active-block{
-    background-color: rgb(132, 158, 158);
+    background-color: rgb(157, 219, 219);
+}
+.send-new-quiz > h3{
+    color: white;
+    font-size: 32px;
+    text-align: center;
+}
+.add-quiz__question{
+    display: flex;
+    flex-direction: column;
+    width: 540px;
+}
+.add-quiz__question > *{
+    margin: 5px;
+    text-align: center;
+}
+.add-quiz__question > input{
+    padding: 8px;
+    border: none;
+    border-bottom: 1px solid #000d1a;
+}
+.add-quiz__question > input {
+    outline: 0;
+}
+.right-answer-wrap{
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    width: 540px;
+}
+.right-answer-wrap > *{
+    margin: 5px;
+    text-align: center;
+}
+.right-answer-wrap > input{
+    padding: 8px;
+    border: none;
+    border-bottom: 1px solid #000d1a;
+}
+.right-answer-wrap > input:focus {
+    outline: 0;
+}
+.wrong-answers-container > *{
+    text-align: center;
+    margin: 10px;
+}
+.wrong-answers-container > span{
+    display: block;
+}
+.wrong-answers{
+    display: flex;
+    justify-content: space-between;
+   
+}
+.wrong-answers > input {
+    text-align: center;
+    padding: 8px;
+    border: none;
+    border-bottom: 1px solid #000d1a;
+}
+.wrong-answers > input:focus {
+    outline: 0;
 }

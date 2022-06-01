@@ -12,3 +12,16 @@ chooseModeBtns.forEach(el => el.addEventListener("click", ()=>{
     el.classList.add("active_btn")
 }))
 
+
+const logoutBtn = document.querySelector('.logout')
+const homeBtn = document.querySelector('.home')
+
+logoutBtn.addEventListener('click',()=>{
+    location.hash = "#auth";
+    sessionStorage.setItem('user','')
+    
+})
+homeBtn.addEventListener('click',()=>{
+    location.hash = "#chooseQuiz";
+    
+})

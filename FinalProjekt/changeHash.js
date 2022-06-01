@@ -12,6 +12,7 @@ window.onload = () => {
 
 window.addEventListener("hashchange", changeHash);
 
+const resultPage = document.querySelector(".result");
 const authPage = document.querySelector(".authorization");
 const chooseQuizPage = document.querySelector(".choose-quiz-wrapper");
 const addQuizPage = document.querySelector(".add-quiz-page");
@@ -19,17 +20,25 @@ const sendNewQuizPage = document.querySelector(".send-new-quiz");
 const gamePage = document.querySelector(".game");
 const addQuizBtn = document.getElementById("addQuiz");
 
+// const logoutBtn = document.querySelector('.logout')
+// const homeBtn = document.querySelector('.home')
+
 function changeHash() {
+  logoutBtn.style.visibility = 'visible';
+  homeBtn.style.visibility = 'visible';
   addQuizBtn.hidden = true;
   authPage.hidden = true;
   chooseQuizPage.hidden = true;
   addQuizPage.hidden = true;
   sendNewQuizPage.hidden = true;
   gamePage.hidden = true;
+  resultPage.hidden = true
   let user;
   switch (location.hash) {
     case "#auth":
       authPage.hidden = false;
+      homeBtn.style.visibility = 'hidden';
+      logoutBtn.style.visibility = 'hidden';
       break;
     case "#chooseQuiz":
       if (!sessionStorage.getItem("user")) {
