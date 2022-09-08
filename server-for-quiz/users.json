@@ -1,14 +1,1 @@
-[
-  { "name": "Ilia", "login": "admin", "email": "nehjdxbr@gmail.com", "password": "1234", "isAdmin": true, "id": 1 },
-  { "name": "Ilia", "login": "umbamax", "email": "nehjdxbr@mail.com", "password": "1234", "isAdmin": false, "id": 2 },
-  { "name": "Lupa", "login": "Pupa", "email": "PupaZaLupa@mail.ro", "password": "ff2", "isAdmin": false, "id": 3 },
-  { "name": "ad", "login": "asdagf", "email": "ads@adsaasd.2", "password": "1234", "isAdmin": false, "id": 4 },
-  { "name": "Vasilii", "login": "1234", "email": "шдшф@as.a", "password": "4", "isAdmin": false, "id": 5 },
-  { "name": "Илья", "login": "Biba", "email": "asd@afg.rfhfdhytjy", "password": "2", "isAdmin": false, "id": 6 },
-  { "name": "umbomaxia@gmail.com", "login": "TerkinVasilii", "email": "umbomaxia@gmail.com", "password": "2", "isAdmin": false, "id": 7 },
-  { "name": "2", "login": "2", "email": "umbxia@gmail.com", "password": "2", "isAdmin": false, "id": 8 },
-  { "name": "2", "login": "22", "email": "iasasdad@ad.com", "password": "2", "isAdmin": false, "id": 9 },
-  { "name": "12344", "login": "12344", "email": "1234@as.3", "password": "1", "isAdmin": false, "id": 10 },
-  { "name": "umbomaxia@gmail.com", "login": "TerkinVasilii2", "email": "1234@as.33", "password": "4", "isAdmin": false, "id": 11 },
-  { "name": "Илья", "login": "Umbamax2", "email": "nehjdasdxbr@gmail.com", "password": "1234", "isAdmin": false, "id": 12 }
-]
+[{"name":"Ilia","login":"admin","email":"nehjdxbr@gmail.com","password":"1234","isAdmin":true,"id":1},{"name":"Ilia","login":"umbamax","email":"nehjdxbr@mail.com","password":"1234","isAdmin":false,"id":2},{"name":"Lupa","login":"Pupa","email":"PupaZaLupa@mail.ro","password":"ff2","isAdmin":false,"id":3},{"name":"ad","login":"asdagf","email":"ads@adsaasd.2","password":"1234","isAdmin":false,"id":4},{"name":"Vasilii","login":"1234","email":"шдшф@as.a","password":"4","isAdmin":false,"id":5},{"name":"Илья","login":"Biba","email":"asd@afg.rfhfdhytjy","password":"2","isAdmin":false,"id":6},{"name":"umbomaxia@gmail.com","login":"TerkinVasilii","email":"umbomaxia@gmail.com","password":"2","isAdmin":false,"id":7},{"name":"2","login":"2","email":"umbxia@gmail.com","password":"2","isAdmin":false,"id":8},{"name":"2","login":"22","email":"iasasdad@ad.com","password":"2","isAdmin":false,"id":9},{"name":"12344","login":"12344","email":"1234@as.3","password":"1","isAdmin":false,"id":10},{"name":"umbomaxia@gmail.com","login":"TerkinVasilii2","email":"1234@as.33","password":"4","isAdmin":false,"id":11},{"name":"Илья","login":"Umbamax2","email":"nehjdasdxbr@gmail.com","password":"1234","isAdmin":false,"id":12},{"name":"Yjdsq","login":"user44","email":"sdfasggggg@aaa.2","password":"1234","isAdmin":false,"id":13}]

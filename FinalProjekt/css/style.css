@@ -225,7 +225,7 @@ input[type=submit]:active {
   cursor: pointer;
 }
 #addQuiz{
-  display: block;
+  
     width: 420px;
     margin: 20px;
     background-color: #f7f7f7;
